@@ -14,7 +14,8 @@ html{
 }
 
 body{
-  font-family: '', sans-serif;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--branco) !important;
 }
 
 .none{
@@ -23,4 +24,12 @@ body{
 
 .block{
   display: block;
+}
+
+h1{
+  font-weight: 600;
+}
+
+.link-visivel{
+  text-decoration: underline;
 }

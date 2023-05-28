@@ -10,7 +10,7 @@
     <meta name="keywords" content="#">
     <meta name="author" content="Gabriel Ribeiro">
     <meta name="description" content="#">
-
+    
     <meta property="og:title" content="#">
     <meta property="og:description" content="#">
     <meta property="og:url" content="#">
@@ -19,7 +19,7 @@
     <meta property="og:image:type" content="image/png"> 
     <meta property="og:image:width" content="400"> 
     <meta property="og:image:height" content="300"> 
-
+    
     <meta name="twitter:title" content="#">
   -->
   
@@ -65,9 +65,90 @@
       </div>
     </div>
   </noscript>
-
+  
   <div class="overlay-2">
     <div class="lds-ring-2"><div></div><div></div><div></div><div></div></div>
+  </div>
+  
+  <div class="container mt-5 mb-5">
+    <header class="mb-5">
+      <h1>Calculadora<br>Tempo de Serviço</h1>
+    </header>
+    
+    <main class="row">
+      <section class="col">
+        <div class="card">
+          <div class="card-header">
+            <b>Períodos de serviço</b>
+          </div>
+          <div class="card-body">
+            <form action="" data-element="formulario">
+              <div class="row mb-3">
+                <div class="col input-group">
+                  <label class="input-group-text" for="inicio-periodo-1">Início</label>
+                  <input type="date" class="form-control" id="inicio-periodo-1">
+                </div>
+                <div class="col input-group">
+                  <label class="input-group-text" for="fim-periodo-1">Fim</label>
+                  <input type="date" class="form-control" id="fim-periodo-1">
+                </div>
+              </div>
+              <button class="btn btn-outline-primary">Adicionar período</button>
+            </form>
+          </div>
+        </div>
+      </section>
+      
+      <section class="col">
+        <div class="card">
+          <div class="card-header">
+            <b>Tempo de serviço</b>
+          </div>
+          <div class="card-body">     
+            <h4>36 meses</h4>
+            <span class="text-muted">3 anos (36 meses) e 12 dias</span><br> 
+
+            <div class="mt-4">
+              <div class="mt-2">
+                <i class="bi bi-calendar2-check"></i>&nbsp;
+                <span>Pode usar saldo de contas FGTS em financiamentos habitacionais</span>
+              </div>
+              <div class="mt-2">
+                <i class="bi bi-receipt"></i>&nbsp;
+                <span>Pode amortizar financiamentos habitacionais com o FGTS&nbsp;<sup><a href="" class="link-visivel" rel="noreferrer noopener">1</a></sup></span>
+              </div>
+              <div class="mt-2">
+                <i class="bi bi-percent"></i>&nbsp;
+                <span>Pode ter desconto de 0.5% ao ano no juros para Minha Casa Minha Vida</span>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <div class="mt-2">
+                <i class="bi bi-x-square"></i>&nbsp;
+                <span>Não pode usar saldo de contas FGTS em financiamentos habitacionais</span>
+              </div>
+              <div class="mt-2">
+                <i class="bi bi-x-square"></i>&nbsp;
+                <span>Não pode amortizar financiamentos habitacionais com o FGTS&nbsp;<sup><a href="" class="link-visivel" rel="noreferrer noopener">1</a></sup></span>
+              </div>
+              <div class="mt-2">
+                <i class="bi bi-x-square"></i>&nbsp;
+                <span>Não pode ter desconto no juros para o Minha Casa Minha Vida</span>
+              </div>
+            </div>
+
+            <div class="mt-4 alert alert-primary">
+              <b>Saiba mais</b>&nbsp;<a href="https://www.fgts.gov.br/Pages/sou-trabalhador/amortizacao_liquidacao.aspx" class="link-visivel" rel="noreferrer noopener">sobre a utilização do FGTS em financiamentos habitacionais.</a>
+            </div>
+
+            <div>
+              <p class="text-muted"><sup>1</sup>&nbsp;A amortização de financiamentos habitacionais pode ser realizada a cada 2 anos, após o imóvel pronto em caso de empreendimento.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
   
 </body>
