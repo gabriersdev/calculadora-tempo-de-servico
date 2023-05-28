@@ -27,7 +27,11 @@ body{
 }
 
 h1{
-  font-weight: 600;
+  font-weight: 300;
+}
+
+small{
+  font-size: 0.9rem;
 }
 
 .link-visivel{
