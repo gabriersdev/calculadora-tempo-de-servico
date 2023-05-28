@@ -23,7 +23,7 @@
         break;
 
         default:
-          throw new Error('Ação não implementada para o link informado.');
+          // throw new Error('Ação não implementada para o link informado.');
         break;
       }
 

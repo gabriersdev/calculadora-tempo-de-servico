@@ -18,6 +18,13 @@ body{
   background-color: var(--branco) !important;
 }
 
+.content-all{
+  min-height: calc(100vh - (6rem ));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .none{
   display: none;
 }
@@ -31,9 +38,21 @@ h1{
 }
 
 small{
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .link-visivel{
   text-decoration: underline;
+}
+
+[data-element="critica-tempo-de-servico"] li > i{
+  margin-right: 0.5rem;
+}
+
+.text-success{
+  color: #0D6EFD !important;
+}
+
+.text-error{
+  color: #E33B3B !important;
 }
