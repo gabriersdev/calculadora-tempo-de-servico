@@ -84,17 +84,19 @@
           </div>
           <div class="card-body">
             <form action="" data-element="formulario">
-              <div class="row mb-3">
-                <div class="col input-group">
-                  <label class="input-group-text" for="inicio-periodo-1">Início</label>
-                  <input type="date" class="form-control" id="inicio-periodo-1">
-                </div>
-                <div class="col input-group">
-                  <label class="input-group-text" for="fim-periodo-1">Fim</label>
-                  <input type="date" class="form-control" id="fim-periodo-1">
+              <div data-element="periodos">
+                <div class="row mb-3" data-element="periodo">
+                  <div class="col input-group">
+                    <label class="input-group-text" for="inicio-periodo-0">Início</label>
+                    <input type="date" class="form-control" id="inicio-periodo-0">
+                  </div>
+                  <div class="col input-group">
+                    <label class="input-group-text" for="fim-periodo-0">Fim</label>
+                    <input type="date" class="form-control" id="fim-periodo-0">
+                  </div>
                 </div>
               </div>
-              <button class="btn btn-outline-primary">Adicionar período</button>
+              <button type="submit" class="btn btn-outline-primary" data-action="adicionar-periodo">Adicionar período</button>
             </form>
           </div>
         </div>
@@ -110,15 +112,11 @@
             <span class="text-muted">3 anos (36 meses) e 12 dias</span><br> 
             
             <ul class="mt-4 text-success" data-element="critica-tempo-de-servico">
-              <li class="mt-2"><i class="bi bi-calendar2-check"></i><span>Pode usar saldo de contas FGTS em financiamentos habitacionais</span></li>
-              <li class="mt-2"><i class="bi bi-receipt"></i><span>Pode amortizar financiamentos habitacionais com o FGTS&nbsp;<sup><a href="" class="link-visivel" rel="noreferrer noopener">1</a></sup></span></li>
-              <li class="mt-2"><i class="bi bi-percent"></i><span>Pode ter desconto de 0.5% ao ano no juros para Minha Casa Minha Vida</span></li>
+
             </ul>
             
             <ul class="mt-4 text-error" data-element="critica-tempo-de-servico">
-              <li class="mt-2"><i class="bi bi-x-square"></i><span>Não pode usar saldo de contas FGTS em financiamentos habitacionais</span></li>
-              <li class="mt-2"><i class="bi bi-x-square"></i><span>Não pode amortizar financiamentos habitacionais com o FGTS&nbsp;<sup><a href="" class="link-visivel" rel="noreferrer noopener">1</a></sup></span></li>
-              <li class="mt-2"><i class="bi bi-x-square"></i><span>Não pode ter desconto no juros para o Minha Casa Minha Vida</span></li>
+
             </ul>
             
             <div class="mt-4 alert alert-primary">

@@ -1,5 +1,7 @@
 "use strict";
 
+import { conteudos } from './modulos/conteudos.js';
+
 (() => {
   // hljs.highlightAll();
   
@@ -21,12 +23,12 @@
         case 'github-projeto':
         link.href = 'https://github.com/gabrieszin/[nome-repositorio]';
         break;
-
+        
         default:
-          // throw new Error('Ação não implementada para o link informado.');
+        // throw new Error('Ação não implementada para o link informado.');
         break;
       }
-
+      
       link.setAttribute('rel', 'noopener noreferrer');
     })
   }
@@ -34,20 +36,66 @@
   function atribuirAcoes(){
     const acoes = document.querySelectorAll('[data-action]');
     acoes.forEach(acao => {
-      switch(acao.dataset.acao.toLowerCase().trim()){
-        case '':
+      switch(acao.dataset.action.toLowerCase().trim()){
+        case 'adicionar-periodo':
+        acao.addEventListener('click', (evento) => {
+          evento.preventDefault();
+          document.querySelector('[data-element="periodos"]').innerHTML += conteudos.periodo(document.querySelectorAll('[data-element="periodo"]').length);
+        })
         break;
-
+        
         default:
-          throw new Error('Ação não implementada para o link informado.');
+        throw new Error('Ação não implementada para o link informado.');
         break;
       }
     })
   }
-
+  
   window.addEventListener("load", function () {
     const overlay2 = document.querySelector(".overlay-2");
     overlay2.style.display = "none";
     atribuirLinks();
+    atribuirAcoes();
   });
 })();
+
+const periodos = [
+  {inicio: '2000-01-01', fim: '2005-01-01'},
+  {inicio: '2010-01-01', fim: '2015-01-01'},
+]
+
+const tempo = {
+  meses: 0, anos: 0, dias: 0, 
+  push(referencia, valor){
+    switch(referencia.toLowerCase().trim()){
+      case 'meses':
+        this.meses += valor;
+      break;
+
+      case 'anos':
+        this.anos += valor;
+      break;
+
+      case 'dias':
+        this.dias += valor;
+      break;
+    }
+  }
+};
+
+periodos.forEach(periodo => {
+  const inicio = moment(periodo.inicio);
+  const fim = moment(periodo.fim)
+  
+  const anos = fim.diff(inicio, 'years');
+  const meses = fim.diff(inicio, 'months');
+  const dias = fim.diff(inicio, 'days');
+  
+  tempo.push('anos', anos);
+  tempo.push('meses', meses);
+  tempo.push('dias', dias);
+  
+  // console.log(meses, anos, dias)
+})
+
+// console.log(tempo.dias % 30)
