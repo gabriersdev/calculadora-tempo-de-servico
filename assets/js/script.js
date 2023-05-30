@@ -136,9 +136,23 @@ const adicionarPeriodos = () => {
     const inicio = periodo.querySelector('[data-element="inicio"]');
     const fim = periodo.querySelector('[data-element="fim"]');
     
-    periodos.push({inicio: inicio.value, fim: fim.value});
+    if(verificarValorValido(inicio)){
+      inicio.closest('.col.input-group').classList.contains('invalid') ? elemento.closest('.col.input-group').classList.remove('invalid') : '';
+      if(verificarValorValido(fim)){
+        fim.closest('.col.input-group').classList.contains('invalid') ? elemento.closest('.col.input-group').classList.remove('invalid') : '';
+        periodos.push({inicio: inicio.value, fim: fim.value});
+        ok.push('true');
+      }else{
+        fim.closest('.col.input-group').classList.add('invalid');
+        ok.push('false');
+      }
+    }else{
+      ok.push('false');
+      inicio.closest('.col.input-group').classList.add('invalid');
+    }
   })
-  calcularPeriodos();
+
+  ok.every(e => e == 'true') ? calcularPeriodos() : '';
 }
 
 window.escutaEventoInput = escutaEventoInput;
