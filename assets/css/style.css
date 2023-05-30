@@ -56,3 +56,8 @@ small{
 .text-error{
   color: #E33B3B !important;
 }
+
+.invalid label,
+.invalid input{
+  border: 1px solid #E33B3B !important;
+}

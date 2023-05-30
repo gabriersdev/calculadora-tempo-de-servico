@@ -1,6 +1,7 @@
 "use strict";
 
 import { conteudos } from './modulos/conteudos.js';
+import { isEmpty } from './modulos/utilitarios.js';
 
 (() => {
   // hljs.highlightAll();
@@ -59,43 +60,57 @@ import { conteudos } from './modulos/conteudos.js';
   });
 })();
 
-const periodos = [
-  {inicio: '2000-01-01', fim: '2005-01-01'},
-  {inicio: '2010-01-01', fim: '2015-01-01'},
-]
+const periodos = new Array();
 
 const tempo = {
   meses: 0, anos: 0, dias: 0, 
   push(referencia, valor){
     switch(referencia.toLowerCase().trim()){
       case 'meses':
-        this.meses += valor;
+      this.meses += valor;
       break;
-
+      
       case 'anos':
-        this.anos += valor;
+      this.anos += valor;
       break;
-
+      
       case 'dias':
-        this.dias += valor;
+      this.dias += valor;
       break;
     }
   }
 };
 
-periodos.forEach(periodo => {
-  const inicio = moment(periodo.inicio);
-  const fim = moment(periodo.fim)
-  
-  const anos = fim.diff(inicio, 'years');
-  const meses = fim.diff(inicio, 'months');
-  const dias = fim.diff(inicio, 'days');
-  
-  tempo.push('anos', anos);
-  tempo.push('meses', meses);
-  tempo.push('dias', dias);
-  
-  // console.log(meses, anos, dias)
-})
+const calcularPeriodos = () => {
+  periodos.forEach(periodo => {
+    const inicio = moment(periodo.inicio);
+    const fim = moment(periodo.fim)
+    
+    const anos = fim.diff(inicio, 'years');
+    const meses = fim.diff(inicio, 'months');
+    const dias = fim.diff(inicio, 'days');
+    
+    tempo.push('anos', anos);
+    tempo.push('meses', meses);
+    tempo.push('dias', dias);
+    
+    // console.log(meses, anos, dias)
+  })
+}
 
-// console.log(tempo.dias % 30)
+const escutaEventoInput = (elemento) => {
+  // Verificação de validade da data informada
+  const valid_size = elemento.value.replaceAll('-', '').length == 8;
+  const valid_inicio = elemento.value.split('-')[0] >= 1970;
+  const valid_fim = moment(moment().format('YYYY-MM-DD')).diff([elemento.value.split('-')[0].substr(0, 4), (elemento.value.split('-')[1] - 1), elemento.value.split('-')[2]], 'days') >= 0;
+  const valid_regex = elemento.value.match(/^\d{4}-\d{2}-\d{2}$/);
+  
+  const valid = [valid_size, valid_inicio, valid_fim].every(v => v == true) && !isEmpty(valid_regex);
+  
+  if(!valid){
+    elemento.closest('.col.input-group').classList.add('invalid')
+  }else{
+    elemento.closest('.col.input-group').classList.contains('invalid') ? elemento.closest('.col.input-group').classList.remove('invalid') : '';
+  }
+}
+window.escutaEventoInput = escutaEventoInput;
