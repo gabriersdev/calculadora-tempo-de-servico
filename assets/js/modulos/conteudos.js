@@ -6,11 +6,11 @@ return  `
 <div class="row mb-3" data-element="periodo">
   <div class="col input-group">
     <label class="input-group-text" for="inicio-periodo-${index}">Início</label>
-    <input type="date" class="form-control" id="inicio-periodo-${index}" oninput="escutaEventoInput(this)">
+    <input type="date" class="form-control" id="inicio-periodo-${index}" oninput="escutaEventoInput(this)" data-element="inicio" required>
   </div>
   <div class="col input-group">
     <label class="input-group-text" for="fim-periodo-${index}">Fim</label>
-    <input type="date" class="form-control" id="fim-periodo-${index}" oninput="escutaEventoInput(this)">
+    <input type="date" class="form-control" id="fim-periodo-${index}" oninput="escutaEventoInput(this)" data-element="fim" required>
   </div>
 </div>`
 };

@@ -88,15 +88,18 @@
                 <div class="row mb-3" data-element="periodo">
                   <div class="col input-group">
                     <label class="input-group-text" for="inicio-periodo-0">Início</label>
-                    <input type="date" class="form-control" id="inicio-periodo-0" oninput="escutaEventoInput(this)">
+                    <input type="date" class="form-control" id="inicio-periodo-0" oninput="escutaEventoInput(this)" data-element="inicio" required>
                   </div>
                   <div class="col input-group">
                     <label class="input-group-text" for="fim-periodo-0">Fim</label>
-                    <input type="date" class="form-control" id="fim-periodo-0" oninput="escutaEventoInput(this)">
+                    <input type="date" class="form-control" id="fim-periodo-0" oninput="escutaEventoInput(this)" data-element="fim" required>
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-outline-primary" data-action="adicionar-periodo">Adicionar período</button>
+              <div class="d-flex justify-content-between align-center">
+                <button type="button" class="btn btn-outline-primary" data-action="adicionar-periodo">Adicionar período</button>
+                <button type="submit" class="btn btn-primary" data-action="calcular">Calcular</button>
+              </div>
             </form>
           </div>
         </div>
