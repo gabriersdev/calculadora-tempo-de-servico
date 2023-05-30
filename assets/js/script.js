@@ -41,7 +41,7 @@ import { isEmpty } from './modulos/utilitarios.js';
         case 'adicionar-periodo':
         acao.addEventListener('click', (evento) => {
           evento.preventDefault();
-          document.querySelector('[data-element="periodos"]').innerHTML += conteudos.periodo(document.querySelectorAll('[data-element="periodo"]').length);
+          document.querySelector('[data-element="periodos"]').appendChild(conteudos.periodo(document.querySelectorAll('[data-element="periodo"]').length));
         })
         break;
 
