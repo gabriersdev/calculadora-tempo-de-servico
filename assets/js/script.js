@@ -42,6 +42,7 @@ import { isEmpty, tooltips } from './modulos/utilitarios.js';
         acao.addEventListener('click', (evento) => {
           evento.preventDefault();
           document.querySelector('[data-element="periodos"]').appendChild(conteudos.periodo(document.querySelectorAll('[data-element="periodo"]').length));
+          tooltips();
         })
         break;
 
@@ -71,7 +72,7 @@ import { isEmpty, tooltips } from './modulos/utilitarios.js';
 function removerPeriodo(target){
   const elemento = target.closest('[data-element="periodo"]');
   elemento.remove();
-  
+  $(target).tooltip('dispose');
 }
 window.removerPeriodo = removerPeriodo;
 
