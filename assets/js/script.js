@@ -1,7 +1,7 @@
 "use strict";
 
 import { conteudos } from './modulos/conteudos.js';
-import { isEmpty, tooltips } from './modulos/utilitarios.js';
+import { SwalAlert, isEmpty, tooltips } from './modulos/utilitarios.js';
 
 (() => {
   // hljs.highlightAll();
@@ -96,27 +96,15 @@ const tempo = {
       break;
     }
   },
-  clear(referencia){
-    switch(referencia.toLowerCase().trim()){
-      case 'meses':
-      this.meses = 0;
-      break;
-      
-      case 'anos':
-      this.anos = 0;
-      break;
-      
-      case 'dias':
-      this.dias = 0;
-      break;
-    }
+  clear(){
+    this.meses = 0;
+    this.anos = 0;
+    this.dias = 0;
   }
 };
 
 const calcularPeriodos = () => {
-  tempo.clear('meses');
-  tempo.clear('anos');
-  tempo.clear('dias');
+  tempo.clear();
 
   periodos.forEach(periodo => {
     const inicio = moment(periodo.inicio);
@@ -126,9 +114,18 @@ const calcularPeriodos = () => {
     const meses = fim.diff(inicio, 'months');
     const dias = fim.diff(inicio, 'days');
     
-    tempo.push('anos', anos);
-    tempo.push('meses', meses);
-    tempo.push('dias', dias);
+    if(meses < 0){
+      SwalAlert('aviso', 'error', 'Período inválido!', `A data de encerramento ${fim.format('DD/MM/YYYY')} é anterior a data de ínicio ${inicio.format('DD/MM/YYYY')}. Gentileza corrigir.`);
+    }else{
+      if(meses = 0){
+        //Tratamento
+      }else{
+
+      }
+      tempo.push('anos', anos);
+      tempo.push('meses', meses);
+      tempo.push('dias', dias);
+    }
   })
 
   // Exibir resultados:
