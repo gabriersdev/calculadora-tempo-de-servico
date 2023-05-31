@@ -117,7 +117,7 @@ const calcularPeriodos = () => {
     if(meses < 0){
       SwalAlert('aviso', 'error', 'Período inválido!', `A data de encerramento ${fim.format('DD/MM/YYYY')} é anterior a data de ínicio ${inicio.format('DD/MM/YYYY')}. Gentileza corrigir.`);
     }else{
-      if(meses = 0){
+      if(meses == 0){
         //Tratamento
       }else{
 
