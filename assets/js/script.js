@@ -95,11 +95,29 @@ const tempo = {
       this.dias += valor;
       break;
     }
+  },
+  clear(referencia){
+    switch(referencia.toLowerCase().trim()){
+      case 'meses':
+      this.meses = 0;
+      break;
+      
+      case 'anos':
+      this.anos = 0;
+      break;
+      
+      case 'dias':
+      this.dias = 0;
+      break;
+    }
   }
 };
 
 const calcularPeriodos = () => {
-  console.log(periodos)
+  tempo.clear('meses');
+  tempo.clear('anos');
+  tempo.clear('dias');
+
   periodos.forEach(periodo => {
     const inicio = moment(periodo.inicio);
     const fim = moment(periodo.fim);
