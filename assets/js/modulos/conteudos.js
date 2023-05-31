@@ -14,6 +14,7 @@ div.innerHTML = `
 <div class="col input-group">
 <label class="input-group-text" for="fim-periodo-${index}">Fim</label>
 <input type="date" class="form-control" id="fim-periodo-${index}" oninput="escutaEventoInput(this)" data-element="fim" required>
+<button class="btn btn-outline-secondary" type="button" onclick="removerPeriodo(this)" data-toggle="tooltip" data-placement="top" title="Remover"><i class="bi bi-trash"></i></button>
 </div>`;
 
 return div;

@@ -9,12 +9,15 @@
 @import url(./componentes/no-script.css);
 @import url(./componentes/loader.css);
 
+*{
+  font-family: 'Inter', sans-serif;
+}
+
 html{
   scroll-behavior: smooth;
 }
 
 body{
-  font-family: 'Inter', sans-serif;
   background-color: var(--branco) !important;
 }
 

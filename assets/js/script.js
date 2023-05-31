@@ -1,7 +1,7 @@
 "use strict";
 
 import { conteudos } from './modulos/conteudos.js';
-import { isEmpty } from './modulos/utilitarios.js';
+import { isEmpty, tooltips } from './modulos/utilitarios.js';
 
 (() => {
   // hljs.highlightAll();
@@ -64,8 +64,16 @@ import { isEmpty } from './modulos/utilitarios.js';
     overlay2.style.display = "none";
     atribuirLinks();
     atribuirAcoes();
+    tooltips();
   });
 })();
+
+function removerPeriodo(target){
+  const elemento = target.closest('[data-element="periodo"]');
+  elemento.remove();
+  
+}
+window.removerPeriodo = removerPeriodo;
 
 let periodos = new Array();
 
@@ -102,10 +110,11 @@ const calcularPeriodos = () => {
     tempo.push('anos', anos);
     tempo.push('meses', meses);
     tempo.push('dias', dias);
-    
-    console.log(meses)
   })
-  console.log(tempo)
+
+  // Exibir resultados:
+  document.querySelector('[data-content="meses-calculo"]').textContent = `${tempo.meses} meses`;
+  document.querySelector('[data-content="dados-calculo-detalhado"]').textContent = `${tempo.anos} anos (${tempo.meses} meses)`
 }
 
 const escutaEventoInput = (elemento) => {
