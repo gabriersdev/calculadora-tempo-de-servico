@@ -45,12 +45,12 @@ import { SwalAlert, isEmpty, tooltips } from './modulos/utilitarios.js';
           tooltips();
         })
         break;
-
+        
         case 'calcular':
-          acao.addEventListener('click', (evento) => {
-            evento.preventDefault();
-            adicionarPeriodos();
-          })
+        acao.addEventListener('click', (evento) => {
+          evento.preventDefault();
+          adicionarPeriodos();
+        })
         break;
         
         default:
@@ -105,32 +105,70 @@ const tempo = {
 
 const calcularPeriodos = () => {
   tempo.clear();
+  const exibir = new Array();
+  
+  function filtro(anos, meses, dias, exibir, inicio, fim, resolve){
+    if(meses < 0){
+      SwalAlert('aviso', 'error', 'Período inválido!', `A data de encerramento ${fim.format('DD/MM/YYYY')} é anterior a data de ínicio ${inicio.format('DD/MM/YYYY')}. Por favor, corrija e tente novamente.`);
+      exibir.push(false);
+    }else{
+      if(dias == 0){
+        SwalAlert('aviso', 'error', 'Período inválido!', `A data de encerramento ${fim.format('DD/MM/YYYY')} é igual a data de ínicio ${inicio.format('DD/MM/YYYY')}. Por favor, corrija e tente novamente.`);
+        exibir.push(false);
+      }else if(meses < 1){
+        SwalAlert('confirmacao', 'warning', 'Período inferior a 30 dias', `O período que se inicia em ${inicio.format('DD/MM/YYYY')} e termina em ${fim.format('DD/MM/YYYY')} têm menos de 30 dias de tempo de serviço. Tem certeza que deseja considerar este período?`).then(retorno => {
+          if(retorno.isConfirmed){
+            adicionar();
+            exibir.push(true);
+            mostrarResultados();
+          }
+        })
+      }else{
+        adicionar();
+        exibir.push(true);
+      }
+      
+      function adicionar(){
+        tempo.push('anos', anos);
+        tempo.push('meses', meses);
+        tempo.push('dias', dias);
+      }
+    }
 
-  periodos.forEach(periodo => {
+    resolve();
+  }
+
+  let percorrer = periodos.reduce((promise, periodo) => {
     const inicio = moment(periodo.inicio);
     const fim = moment(periodo.fim);
-
+    
     const anos = fim.diff(inicio, 'years');
     const meses = fim.diff(inicio, 'months');
     const dias = fim.diff(inicio, 'days');
     
-    if(meses < 0){
-      SwalAlert('aviso', 'error', 'Período inválido!', `A data de encerramento ${fim.format('DD/MM/YYYY')} é anterior a data de ínicio ${inicio.format('DD/MM/YYYY')}. Gentileza corrigir.`);
-    }else{
-      if(meses == 0){
-        //Tratamento
-      }else{
+    return promise.then(() => new Promise((resolve) => {
+      filtro(anos, meses, dias, exibir, inicio, fim, resolve);
+    }))
+  }, Promise.resolve())
+  
+  percorrer.then(() => mostrarResultados());
 
-      }
-      tempo.push('anos', anos);
-      tempo.push('meses', meses);
-      tempo.push('dias', dias);
+  // mostrarResultados();
+
+  function mostrarResultados(){
+    // Exibir resultados:
+    const mod = tempo.meses % (tempo.anos * 12);
+    const anos_ou_ano = tempo.anos > 1 ? 'anos' : 'ano';
+    const meses_ou_mes = mod > 1 ? 'meses' : 'mês';
+    console.log(tempo.dias);
+    
+    if(exibir.every(e => e == true) && tempo.meses > 0){
+      document.querySelector('[data-content="informacao-funcionamento"]').classList.add('none');
+      document.querySelector('[data-content="meses-calculo"]').textContent = `${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}`;
+      document.querySelector('[data-content="dados-calculo-detalhado"]').textContent = `${tempo.anos > 0 ? tempo.anos + ' ' + anos_ou_ano : ''} ${mod !== 0 && !isNaN(mod) ? 'e ' + mod + ' ' + meses_ou_mes : ''}`;
     }
-  })
-
-  // Exibir resultados:
-  document.querySelector('[data-content="meses-calculo"]').textContent = `${tempo.meses} meses`;
-  document.querySelector('[data-content="dados-calculo-detalhado"]').textContent = `${tempo.anos} anos (${tempo.meses} meses)`
+  }
+  
 }
 
 const escutaEventoInput = (elemento) => {
@@ -176,7 +214,7 @@ const adicionarPeriodos = () => {
       inicio.closest('.col.input-group').classList.add('invalid');
     }
   })
-
+  
   ok.every(e => e == 'true') ? calcularPeriodos() : '';
 }
 
