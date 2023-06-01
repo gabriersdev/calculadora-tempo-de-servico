@@ -83,7 +83,7 @@ const tempo = {
   push(referencia, valor){
     switch(referencia.toLowerCase().trim()){
       case 'meses':
-      console.log(this.meses, valor)
+      // console.log(this.meses, valor)
       this.meses += valor;
       break;
       
@@ -168,12 +168,20 @@ const calcularPeriodos = () => {
     const mod = tempo.meses % (tempo.anos * 12);
     const anos_ou_ano = tempo.anos > 1 ? 'anos' : 'ano';
     const meses_ou_mes = mod > 1 ? 'meses' : 'mês';
-    console.log(tempo.dias);
+    // console.log(tempo.dias);
     
+    const informacao_funcionamento = document.querySelector('[data-content="informacao-funcionamento"]');
+    const meses_calculo = document.querySelector('[data-content="meses-calculo"]');
+    const calculo_detalhado = document.querySelector('[data-content="dados-calculo-detalhado"]');
+
     if(exibir.every(e => e == true) && tempo.meses > 0){
-      document.querySelector('[data-content="informacao-funcionamento"]').classList.add('none');
-      document.querySelector('[data-content="meses-calculo"]').textContent = `${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}`;
-      document.querySelector('[data-content="dados-calculo-detalhado"]').textContent = `${tempo.anos > 0 ? tempo.anos + ' ' + anos_ou_ano : ''} ${mod !== 0 && !isNaN(mod) ? 'e ' + mod + ' ' + meses_ou_mes : ''}`;
+      informacao_funcionamento.classList.add('none');
+      meses_calculo.textContent = `${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}`;
+      calculo_detalhado.textContent = `${tempo.anos > 0 ? tempo.anos + ' ' + anos_ou_ano : ''} ${mod !== 0 && !isNaN(mod) ? 'e ' + mod + ' ' + meses_ou_mes : ''}`;
+    }else{
+      informacao_funcionamento.classList.remove('none');
+      meses_calculo.textContent = '';
+      calculo_detalhado.textContent = '';
     }
   }
   
