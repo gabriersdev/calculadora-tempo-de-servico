@@ -106,8 +106,10 @@ const tempo = {
 const calcularPeriodos = () => {
   tempo.clear();
   const exibir = new Array();
+  const recebidos = new Array();
   
-  function filtro(anos, meses, dias, exibir, inicio, fim, resolve){
+  function filtro(anos, meses, dias, inicio, fim, resolve){
+    recebidos.push({anos: anos, meses: meses, dias: dias});
     if(meses < 0){
       SwalAlert('aviso', 'error', 'Período inválido!', `A data de encerramento ${fim.format('DD/MM/YYYY')} é anterior a data de ínicio ${inicio.format('DD/MM/YYYY')}. Por favor, corrija e tente novamente.`);
       exibir.push(false);
@@ -116,10 +118,18 @@ const calcularPeriodos = () => {
         SwalAlert('aviso', 'error', 'Período inválido!', `A data de encerramento ${fim.format('DD/MM/YYYY')} é igual a data de ínicio ${inicio.format('DD/MM/YYYY')}. Por favor, corrija e tente novamente.`);
         exibir.push(false);
       }else if(meses < 1){
-        SwalAlert('confirmacao', 'warning', 'Período inferior a 30 dias', `O período que se inicia em ${inicio.format('DD/MM/YYYY')} e termina em ${fim.format('DD/MM/YYYY')} têm menos de 30 dias de tempo de serviço. Tem certeza que deseja considerar este período?`).then(retorno => {
+        // BUG
+        SwalAlert('confirmacao', 'warning', 'Período inferior a 30 dias', `Existe(em) período(s) em que o tempo de serviço é inferior a 30 dias. Tem certeza que deseja considerar este(s) período(s)?`).then(retorno => {
           if(retorno.isConfirmed){
             adicionar();
-            exibir.push(true);
+            // Refatorar
+            let soma = 0;
+            const periodos_menores = recebidos.filter(e => e.meses < 1);
+            periodos_menores.forEach(periodo => {
+              soma += periodo.dias;
+            })
+
+            soma >= 30? tempo.push('meses', Math.floor(soma / 30)) : '';
             mostrarResultados();
           }
         })
@@ -147,13 +157,11 @@ const calcularPeriodos = () => {
     const dias = fim.diff(inicio, 'days');
     
     return promise.then(() => new Promise((resolve) => {
-      filtro(anos, meses, dias, exibir, inicio, fim, resolve);
+      filtro(anos, meses, dias, inicio, fim, resolve);
     }))
   }, Promise.resolve())
   
   percorrer.then(() => mostrarResultados());
-
-  // mostrarResultados();
 
   function mostrarResultados(){
     // Exibir resultados:
