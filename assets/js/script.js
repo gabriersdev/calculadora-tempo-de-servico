@@ -266,6 +266,6 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento } from './m
     atribuirLinks();
     atribuirAcoes();
     tooltips();
-    // verificarInputsRecarregamento();
+    verificarInputsRecarregamento();
   });
 })();
