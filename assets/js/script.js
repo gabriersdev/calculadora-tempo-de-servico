@@ -20,7 +20,27 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento } from './m
         break;
         
         case 'github-projeto':
-        link.href = 'https://github.com/gabrieszin/[nome-repositorio]';
+        link.href = 'https://github.com/gabrieszin/calculadora-tempo-de-servico';
+        break;
+
+        case 'calculadora':
+        link.href = './index.html';
+        break;
+
+        case 'saiba-mais':
+        link.href = 'https://www.fgts.gov.br/Pages/sou-trabalhador/amortizacao_liquidacao.aspx';
+        break;
+
+        case 'consumindo-api-alura':
+        link.href = 'https://gabrieszin.github.io/my-courses-alura/';
+        break;
+
+        case 'confirmacao-cca':
+        link.href = 'https://gabrieszin.github.io/confirmacao-cca/';
+        break;
+
+        case 'gerador-qr-code':
+        link.href = 'https://gabrieszin.github.io/qr-code-generator/';
         break;
         
         default:
