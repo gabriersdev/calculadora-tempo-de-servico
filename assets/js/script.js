@@ -261,6 +261,9 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento } from './m
   window.escutaEventoInput = escutaEventoInput;
 
   window.addEventListener("load", function () {
+    const body = this.document.querySelector('body');
+    body.innerHTML += conteudos.principal;
+    body.innerHTML += conteudos.footer;
     const overlay2 = document.querySelector(".overlay-2");
     overlay2.style.display = "none";
     atribuirLinks();
