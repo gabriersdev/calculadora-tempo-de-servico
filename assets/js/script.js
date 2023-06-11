@@ -1,7 +1,7 @@
 "use strict";
 
 import { conteudos } from './modulos/conteudos.js';
-import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento } from './modulos/utilitarios.js';
+import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLinks } from './modulos/utilitarios.js';
 
 (() => { 
   document.querySelectorAll('[data-recarrega-pagina]').forEach(botao => {
@@ -9,48 +9,6 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento } from './m
       window.location.reload();
     })
   })
-  
-  function atribuirLinks(){
-    const linkElementos = document.querySelectorAll('[data-link]');
-    
-    linkElementos.forEach(link => {
-      switch(link.dataset.link.toLowerCase().trim()){        
-        case 'github-dev':
-        link.href = 'https://github.com/gabrieszin';
-        break;
-        
-        case 'github-projeto':
-        link.href = 'https://github.com/gabrieszin/calculadora-tempo-de-servico';
-        break;
-
-        case 'calculadora':
-        link.href = './index.html';
-        break;
-
-        case 'saiba-mais':
-        link.href = 'https://www.fgts.gov.br/Pages/sou-trabalhador/amortizacao_liquidacao.aspx';
-        break;
-
-        case 'consumindo-api-alura':
-        link.href = 'https://gabrieszin.github.io/my-courses-alura/';
-        break;
-
-        case 'confirmacao-cca':
-        link.href = 'https://gabrieszin.github.io/confirmacao-cca/';
-        break;
-
-        case 'gerador-qr-code':
-        link.href = 'https://gabrieszin.github.io/qr-code-generator/';
-        break;
-        
-        default:
-        // throw new Error('Ação não implementada para o link informado.');
-        break;
-      }
-      
-      link.setAttribute('rel', 'noopener noreferrer');
-    })
-  }
   
   function atribuirAcoes(){
     const acoes = document.querySelectorAll('[data-action]');
@@ -62,6 +20,14 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento } from './m
           document.querySelector('[data-element="periodos"]').appendChild(conteudos.periodo(document.querySelectorAll('[data-element="periodo"]').length));
           tooltips();
         })
+        break;
+
+        case 'baixar-resultados':
+          acao.addEventListener('click', (evento) => {
+            evento.preventDefault();
+            SwalAlert('aviso', 'error', 'Desculpe, esta função ainda não foi implementada.');
+            // data-action="baixar-resultados"
+          })
         break;
         
         case 'calcular':
@@ -78,7 +44,7 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento } from './m
       }
     })
   }
-  
+
   function removerPeriodo(target){
     const elemento = target.closest('[data-element="periodo"]');
     elemento.remove();
@@ -193,32 +159,79 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento } from './m
       const anos_ou_ano = tempo.anos > 1 ? 'anos' : 'ano';
       const meses_ou_mes = mod > 1 ? 'meses' : 'mês';
       // console.log(tempo.dias);
-      
-      const informacao_funcionamento = document.querySelector('[data-content="informacao-funcionamento"]');
-      const meses_calculo = document.querySelector('[data-content="meses-calculo"]');
-      const calculo_detalhado = document.querySelector('[data-content="dados-calculo-detalhado"]');
   
       if(exibir.every(e => e == true)){
         if(tempo.meses > 0){
           alterarBotao('btn btn-success', 'Calculado!');
-          informacao_funcionamento.classList.add('none');
-          meses_calculo.textContent = `${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}`;
-          calculo_detalhado.textContent = `${tempo.anos > 0 ? tempo.anos + ' ' + anos_ou_ano : ''} ${mod !== 0 && !isNaN(mod) ? 'e ' + mod + ' ' + meses_ou_mes : ''}`;
+          exibirResultados(true, `<b>${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}</b>`, `${tempo.anos > 0 ? tempo.anos + ' ' + anos_ou_ano : ''} ${mod !== 0 && !isNaN(mod) ? 'e ' + mod + ' ' + meses_ou_mes : ''}`);
         }else if(!isEmpty(confirmed)){
           alterarBotao('btn btn-success', 'Calculado!');
-          informacao_funcionamento.classList.add('none');
-          meses_calculo.innerHTML = `<b>Período insuficiente</b>`;
-          calculo_detalhado.textContent = `A soma dos perídos informados é menor que 1 mês`;
+          exibirResultados(true, `<b>Período insuficiente</b>`, `A soma dos perídos informados é menor que 1 mês`);
         }
       }else{
-        informacao_funcionamento.classList.remove('none');
-        meses_calculo.textContent = '';
-        calculo_detalhado.textContent = '';
+        exibirResultados(false, '', '');
       }
+
+      exibirCritica(tempo.meses);
     }
     
   }
-  
+
+  const exibirCritica = (tempo_meses) => {
+    const sucesso = document.querySelector('[data-element="critica-tempo-de-servico-sucesso"]');
+    const erro = document.querySelector('[data-element="critica-tempo-de-servico-erro"]');
+    const saiba_mais = document.querySelector('[data-element="saiba-mais"]');
+    const referencia = document.querySelector('[data-element="referencia"]');
+
+    sucesso.classList.remove('none');
+    erro.classList.remove('none');
+    sucesso.classList.add('text-success');
+    erro.classList.add('text-error');
+    saiba_mais.classList.remove('none');
+    referencia.classList.remove('none');
+
+    sucesso.innerHTML = '';
+    erro.innerHTML = '';
+
+    if(tempo_meses >= 36){
+      sucesso.innerHTML += conteudos.critica.html.podeUsarFGTS;
+      sucesso.innerHTML += conteudos.critica.html.podeTerDescontoMCMV;
+    }else{
+      erro.innerHTML += conteudos.critica.html.naoPodeUsarFGTS;
+      erro.innerHTML += conteudos.critica.html.naoPodeTerDescontoMCMV;
+    }
+
+    if(tempo_meses >= 24){
+      sucesso.innerHTML += conteudos.critica.html.podeAmortizarComFGTS;
+    }else{
+      erro.innerHTML += conteudos.critica.html.naoPodeAmortizarComFGTS;
+    }
+
+    atribuirLinks();
+
+    if(tempo_meses <= 0){
+      sucesso.classList.add('none');
+      erro.classList.add('none');
+      saiba_mais.classList.add('none');
+      referencia.classList.add('none');
+    }
+  }
+
+  const exibirResultados = (classe_info, meses_info, detalhado_info) => {
+    const informacao_funcionamento = document.querySelector('[data-content="informacao-funcionamento"]');
+    const meses_calculo = document.querySelector('[data-content="meses-calculo"]');
+    const calculo_detalhado = document.querySelector('[data-content="dados-calculo-detalhado"]');
+    
+    if(classe_info){
+      informacao_funcionamento.classList.add('none');
+    }else{
+      informacao_funcionamento.classList.remove('none');
+    }
+
+    meses_calculo.innerHTML = meses_info;
+    calculo_detalhado.textContent = detalhado_info;
+  }
+
   const escutaEventoInput = (elemento) => {
     // Verificação de validade da data informada
     const valid = verificarValorValido(elemento);

@@ -132,6 +132,52 @@ const verificarInputsRecarregamento = () => {
   // }
 }
 
+function atribuirLinks(){
+  const linkElementos = document.querySelectorAll('[data-link]');
+  
+  linkElementos.forEach(link => {
+    switch(link.dataset.link.toLowerCase().trim()){        
+      case 'github-dev':
+      link.href = 'https://github.com/gabrieszin';
+      break;
+      
+      case 'github-projeto':
+      link.href = 'https://github.com/gabrieszin/calculadora-tempo-de-servico';
+      break;
+
+      case 'calculadora':
+      link.href = './index.html';
+      break;
+
+      case 'saiba-mais':
+      link.href = 'https://www.fgts.gov.br/Pages/sou-trabalhador/amortizacao_liquidacao.aspx';
+      break;
+
+      case 'saiba-mais-uso':
+      link.href = 'https://www.caixa.gov.br/voce/habitacao/Paginas/utilizacao-fgts.aspx';
+      break;
+
+      case 'consumindo-api-alura':
+      link.href = 'https://gabrieszin.github.io/my-courses-alura/';
+      break;
+
+      case 'confirmacao-cca':
+      link.href = 'https://gabrieszin.github.io/confirmacao-cca/';
+      break;
+
+      case 'gerador-qr-code':
+      link.href = 'https://gabrieszin.github.io/qr-code-generator/';
+      break;
+      
+      default:
+      // throw new Error('Ação não implementada para o link informado.');
+      break;
+    }
+    
+    link.setAttribute('rel', 'noopener noreferrer');
+  })
+}
+
 export{
   isEmpty,
   capitalize,
@@ -142,5 +188,6 @@ export{
   popovers,
   SwalAlert,
   resizeTextArea,
-  verificarInputsRecarregamento
+  verificarInputsRecarregamento,
+  atribuirLinks
 }
