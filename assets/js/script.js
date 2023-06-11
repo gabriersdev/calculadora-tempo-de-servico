@@ -154,7 +154,7 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento } from './m
               })
   
               soma >= 30? tempo.push('meses', Math.floor(soma / 30)) : '';
-              mostrarResultados();
+              mostrarResultados({isConfirmed: true});
             }
           })
         }else{
@@ -187,7 +187,7 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento } from './m
     
     percorrer.then(() => mostrarResultados());
   
-    function mostrarResultados(){
+    function mostrarResultados(confirmed){
       // Exibir resultados:
       const mod = tempo.meses % (tempo.anos * 12);
       const anos_ou_ano = tempo.anos > 1 ? 'anos' : 'ano';
@@ -198,11 +198,18 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento } from './m
       const meses_calculo = document.querySelector('[data-content="meses-calculo"]');
       const calculo_detalhado = document.querySelector('[data-content="dados-calculo-detalhado"]');
   
-      if(exibir.every(e => e == true) && tempo.meses > 0){
-        alterarBotao('btn btn-success', 'Calculado!');
-        informacao_funcionamento.classList.add('none');
-        meses_calculo.textContent = `${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}`;
-        calculo_detalhado.textContent = `${tempo.anos > 0 ? tempo.anos + ' ' + anos_ou_ano : ''} ${mod !== 0 && !isNaN(mod) ? 'e ' + mod + ' ' + meses_ou_mes : ''}`;
+      if(exibir.every(e => e == true)){
+        if(tempo.meses > 0){
+          alterarBotao('btn btn-success', 'Calculado!');
+          informacao_funcionamento.classList.add('none');
+          meses_calculo.textContent = `${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}`;
+          calculo_detalhado.textContent = `${tempo.anos > 0 ? tempo.anos + ' ' + anos_ou_ano : ''} ${mod !== 0 && !isNaN(mod) ? 'e ' + mod + ' ' + meses_ou_mes : ''}`;
+        }else if(!isEmpty(confirmed)){
+          alterarBotao('btn btn-success', 'Calculado!');
+          informacao_funcionamento.classList.add('none');
+          meses_calculo.innerHTML = `<b>Período insuficiente</b>`;
+          calculo_detalhado.textContent = `A soma dos perídos informados é menor que 1 mês`;
+        }
       }else{
         informacao_funcionamento.classList.remove('none');
         meses_calculo.textContent = '';

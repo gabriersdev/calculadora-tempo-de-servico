@@ -122,14 +122,14 @@ function resizeTextArea(textarea){
 }
 
 const verificarInputsRecarregamento = () => {
-  window.onbeforeunload = async (evento) => {
-    evento.preventDefault();
-    await document.querySelectorAll('[data-element="input"]').forEach(elemento => {
-      if(!isEmpty(elemento.value)){
-        return 'Tem certeza que deseja sair?';
-      }
-    })
-  }
+  // window.onbeforeunload = async (evento) => {
+  //   evento.preventDefault();
+  //   await document.querySelectorAll('[data-element="input"]').forEach(elemento => {
+  //     if(!isEmpty(elemento.value)){
+  //       return 'Tem certeza que deseja sair?';
+  //     }
+  //   })
+  // }
 }
 
 export{
