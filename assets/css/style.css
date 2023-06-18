@@ -99,3 +99,47 @@ div.alert{
 h5 b{
   font-weight: 600;
 }
+
+@media screen and (max-width: 991px) {
+  [data-element="periodo"] .input-group:last-child{
+    margin-top: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  [data-element="formulario"] > div:last-child{
+    display: block !important;
+  }
+
+  [data-element="formulario"] > div:last-child button:last-child{
+    margin-top: 0.5rem;
+  }
+
+  [data-element="formulario"] > div:last-child button{
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  main{
+    display: block !important;
+  }
+
+  main > section:last-child{
+    margin-top: 0.5rem;
+  }
+
+  [data-element="periodo"] .input-group:last-child{
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  [data-element="formulario"] [data-element="periodos"] [data-element="periodo"]{
+    display: block !important;
+  }
+
+  [data-element="periodo"] .input-group:last-child{
+    margin-top: 0.5rem;
+  }
+}
