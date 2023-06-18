@@ -118,6 +118,14 @@ h5 b{
   [data-element="formulario"] > div:last-child button{
     width: 100%;
   }
+
+  footer div.row div:first-child{
+    margin-top: 1.5rem;
+  }
+
+  footer div.row div:not(:first-child){
+    margin-top: 1.5rem;
+  }
 }
 
 @media screen and (max-width: 540px) {
@@ -141,5 +149,9 @@ h5 b{
 
   [data-element="periodo"] .input-group:last-child{
     margin-top: 0.5rem;
+  }
+
+  footer div.row{
+    display: block !important;
   }
 }
