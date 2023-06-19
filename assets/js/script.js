@@ -3,6 +3,8 @@
 import { conteudos } from './modulos/conteudos.js';
 import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLinks } from './modulos/utilitarios.js';
 
+let resultados = new Array();
+
 (() => { 
   document.querySelectorAll('[data-recarrega-pagina]').forEach(botao => {
     botao.addEventListener('click', () => {
@@ -25,7 +27,8 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
         case 'baixar-resultados':
           acao.addEventListener('click', (evento) => {
             evento.preventDefault();
-            SwalAlert('aviso', 'error', 'Desculpe, esta função ainda não foi implementada.');
+            // SwalAlert('aviso', 'error', 'Desculpe, esta função ainda não foi implementada.');
+            baixarResultados();
             // data-action="baixar-resultados"
           })
         break;
@@ -93,6 +96,7 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
   
   const calcularPeriodos = () => {
     tempo.clear();
+    // resultados = new Array();
     const exibir = new Array();
     const recebidos = new Array();
     
@@ -164,9 +168,11 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
         if(tempo.meses > 0){
           alterarBotao('btn btn-success', 'Calculado!');
           exibirResultados(true, `<b>${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}</b>`, `${tempo.anos > 0 ? tempo.anos + ' ' + anos_ou_ano : ''} ${mod !== 0 && !isNaN(mod) ? 'e ' + mod + ' ' + meses_ou_mes : ''}`);
+          resultados = JSON.parse(JSON.stringify(periodos));
         }else if(!isEmpty(confirmed)){
           alterarBotao('btn btn-success', 'Calculado!');
           exibirResultados(true, `<b>Período insuficiente</b>`, `A soma dos perídos informados é menor que 1 mês`);
+          resultados = JSON.parse(JSON.stringify(periodos));
         }
       }else{
         exibirResultados(false, '', '');
@@ -263,8 +269,11 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
       if(verificarValorValido(inicio)){
         inicio.closest('.col.input-group').classList.contains('invalid') ? elemento.closest('.col.input-group').classList.remove('invalid') : '';
         if(verificarValorValido(fim)){
+          const i = moment(inicio.value);
+          const f = moment(fim.value);
+
           fim.closest('.col.input-group').classList.contains('invalid') ? elemento.closest('.col.input-group').classList.remove('invalid') : '';
-          periodos.push({inicio: inicio.value, fim: fim.value});
+          periodos.push({inicio: inicio.value, fim: fim.value, meses: moment([f.get('year'), f.get('month'), f.get('date')]).diff([i.get('year'), i.get('month'), i.get('date')], 'months')});
           ok.push('true');
         }else{
           fim.closest('.col.input-group').classList.add('invalid');
@@ -291,4 +300,26 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
     tooltips();
     verificarInputsRecarregamento();
   });
+
+  function baixarResultados(){
+    if(isEmpty(resultados)){
+      SwalAlert('aviso', 'warning', 'Não existem resultados de cálculos para baixar');
+    }else{
+      try{
+        const saida = new Array();
+        resultados.forEach((resultado, index) => {
+          saida.push(`PERÍODO ${index + 1}\nINÍCIO: ${formatar(resultado.inicio)}\nFIM: ${formatar(resultado.fim)}\nMESES: ${resultado.meses}`);
+        })
+        let blob = new Blob([saida.join('\n\n')], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, `Tempo de Serviço.txt`);
+      }catch(erro){
+        console.log(erro);
+      }
+    }
+
+    function formatar(data){
+      const partes = data.split('-');
+      return `${partes[2]}/${partes[1]}/${partes[0]}`;
+    }
+  }
 })();
