@@ -143,8 +143,8 @@ let resultados = new Array();
     }
   
     let percorrer = periodos.reduce((promise, periodo) => {
-      const inicio = moment(periodo.inicio);
-      const fim = moment(periodo.fim);
+      const inicio = moment(formatarDataENG(periodo.inicio));
+      const fim = moment(formatarDataENG(periodo.fim));
       
       const anos = fim.diff(inicio, 'years');
       const meses = fim.diff(inicio, 'months');
@@ -250,15 +250,32 @@ let resultados = new Array();
   }
   
   const verificarValorValido = (elemento) => {
-    const valid_size = elemento.value.replaceAll('-', '').length == 8;
-    const valid_inicio = elemento.value.split('-')[0] >= 1970;
-    const valid_fim = moment(moment().format('YYYY-MM-DD')).diff([elemento.value.split('-')[0].substr(0, 4), (elemento.value.split('-')[1] - 1), elemento.value.split('-')[2]], 'days') >= 0;
-    const valid_regex = elemento.value.match(/^\d{4}-\d{2}-\d{2}$/);
+    const valid_size = elemento.value.replaceAll('/', '').length == 8;
+    const valid_inicio = elemento.value.split('/')[2] >= 1970;
+    // console.log(elemento.value, elemento.value.split('/'))
+    let valid_fim = false;
+    try{
+      valid_fim = moment(moment().format('YYYY-MM-DD')).diff([elemento.value.split('/')[2].substr(0, 4), (elemento.value.split('/')[1] - 1), elemento.value.split('/')[0]], 'days') >= 0;
+    }catch(error){
+      valid_fim = false;
+    }
+    const valid_regex = elemento.value.match(/^\d{2}\/\d{2}\/\d{4}$/);
     
     // console.log([valid_size, valid_inicio, valid_fim].every(v => v == true) && !isEmpty(valid_regex));
     return [valid_size, valid_inicio, valid_fim].every(v => v == true) && !isEmpty(valid_regex);
   }
   
+  const formatarDataENG = (dataBRL) => {
+    const data_numeros = dataBRL.replace(/\D/g, '');
+    if(data_numeros.length == 8){
+      return `${data_numeros.substr(4, 4)}-${data_numeros.substr(0, 2)}-${data_numeros.substr(2, 2)}`
+    }else{
+      return null;
+    }
+  }
+
+  // console.log(formatarDataENG('20/01/2020'))
+
   const adicionarPeriodos = async () => {
     periodos = new Array();
     const ok = new Array();
@@ -269,8 +286,8 @@ let resultados = new Array();
       if(verificarValorValido(inicio)){
         inicio.closest('.col.input-group').classList.contains('invalid') ? elemento.closest('.col.input-group').classList.remove('invalid') : '';
         if(verificarValorValido(fim)){
-          const i = moment(inicio.value);
-          const f = moment(fim.value);
+          const i = moment(formatarDataENG(inicio.value));
+          const f = moment(formatarDataENG(fim.value));
 
           fim.closest('.col.input-group').classList.contains('invalid') ? elemento.closest('.col.input-group').classList.remove('invalid') : '';
           periodos.push({inicio: inicio.value, fim: fim.value, meses: moment([f.get('year'), f.get('month'), f.get('date')]).diff([i.get('year'), i.get('month'), i.get('date')], 'months')});
@@ -292,6 +309,12 @@ let resultados = new Array();
   window.addEventListener("load", function () {
     const body = this.document.querySelector('body');
     body.innerHTML += conteudos.principal;
+
+    $(document).ready(function(){
+      $(`#inicio-periodo-0`).mask('00/00/0000')
+      $(`#fim-periodo-0`).mask('00/00/0000')
+    });
+
     body.innerHTML += conteudos.footer;
     const overlay2 = document.querySelector(".overlay-2");
     overlay2.style.display = "none";
