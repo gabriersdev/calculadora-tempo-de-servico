@@ -22,6 +22,11 @@ $(document).ready(function(){
   $(`#fim-periodo-${index}`).mask('00/00/0000')
 })
 
+setTimeout(() => {
+  $(`#inicio-periodo-${index}`).mask('00/00/0000')
+  $(`#fim-periodo-${index}`).mask('00/00/0000')
+}, 0)
+
 return div;
 };
 
