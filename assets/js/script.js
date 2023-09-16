@@ -19,7 +19,10 @@ let resultados = new Array();
         case 'adicionar-periodo':
         acao.addEventListener('click', (evento) => {
           evento.preventDefault();
-          document.querySelector('[data-element="periodos"]').appendChild(conteudos.periodo(document.querySelectorAll('[data-element="periodo"]').length));
+          const length = document.querySelectorAll('[data-element="periodo"]').length;
+          document.querySelector('[data-element="periodos"]').appendChild(conteudos.periodo(length));
+          // $(`#inicio-periodo-${length}`).mask('00/00/0000')
+          // $(`#fim-periodo-${length}`).mask('00/00/0000')
           tooltips();
         })
         break;
