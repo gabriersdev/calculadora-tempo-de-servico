@@ -1,5 +1,7 @@
 import { isEmpty } from './utilitarios.js';
 
+const first = new Array();
+
 const periodo = (index) => {
 isEmpty(index) ? index = 0 : '';
 
@@ -21,6 +23,12 @@ $(document).ready(function(){
   $(`#inicio-periodo-${index}`).mask('00/00/0000')
   $(`#fim-periodo-${index}`).mask('00/00/0000')
 })
+
+first.push(index);
+
+if(first.length == 1){
+  console.log('Versão 1.5.1');
+}
 
 setTimeout(() => {
   $(`#inicio-periodo-${index}`).mask('00/00/0000')
