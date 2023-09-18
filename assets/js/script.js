@@ -171,7 +171,7 @@ let resultados = new Array();
         if(tempo.meses > 0){
           alterarBotao('btn btn-success', 'Calculado!');
           exibirResultados(true, `<b>${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}</b>`, `${tempo.anos > 0 ? tempo.anos + ' ' + anos_ou_ano : ''} ${mod !== 0 && !isNaN(mod) ? 'e ' + mod + ' ' + meses_ou_mes : ''}`);
-          console.log(resultados);
+          // console.log(resultados);
           resultados = JSON.parse(JSON.stringify(periodos));
         }else if(!isEmpty(confirmed)){
           alterarBotao('btn btn-success', 'Calculado!');
