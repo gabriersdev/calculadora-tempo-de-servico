@@ -21,8 +21,8 @@ let resultados = new Array();
           evento.preventDefault();
           const length = document.querySelectorAll('[data-element="periodo"]').length;
           document.querySelector('[data-element="periodos"]').appendChild(conteudos.periodo(length));
-          // $(`#inicio-periodo-${length}`).mask('00/00/0000')
-          // $(`#fim-periodo-${length}`).mask('00/00/0000')
+          $(`#inicio-periodo-${length}`).mask('00/00/0000')
+          $(`#fim-periodo-${length}`).mask('00/00/0000')
           tooltips();
         })
         break;
