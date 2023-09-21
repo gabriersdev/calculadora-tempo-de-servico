@@ -272,13 +272,13 @@ let resultados = new Array();
   const formatarDataENG = (dataBRL) => {
     const data_numeros = dataBRL.replace(/\D/g, '');
     if(data_numeros.length == 8){
-      return `${data_numeros.substr(4, 4)}-${data_numeros.substr(0, 2)}-${data_numeros.substr(2, 2)}`
+      return `${data_numeros.substr(4, 4)}-${data_numeros.substr(2, 2)}-${data_numeros.substr(0, 2)}`
     }else{
       return null;
     }
   }
 
-  // console.log(formatarDataENG('20/01/2020'))
+  console.log(formatarDataENG('20/01/2020'))
 
   const adicionarPeriodos = async () => {
     periodos = new Array();
