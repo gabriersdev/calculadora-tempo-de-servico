@@ -133,6 +133,7 @@ let resultados = new Array();
         }else{
           adicionar();
           exibir.push(true);
+          // console.log(periodos)
         }
         
         function adicionar(){
@@ -234,12 +235,18 @@ let resultados = new Array();
     
     if(classe_info){
       informacao_funcionamento.classList.add('none');
+      $('[data-content="demais-informacoes"]').removeClass('none')
     }else{
       informacao_funcionamento.classList.remove('none');
     }
 
     meses_calculo.innerHTML = meses_info;
     calculo_detalhado.textContent = detalhado_info;
+  }
+
+  const removerResultados = () => {
+    $('[data-content="informacao-funcionamento"]').removeClass('none')
+    $('[data-content="demais-informacoes"]').addClass('none')
   }
 
   const escutaEventoInput = (elemento) => {
@@ -278,7 +285,7 @@ let resultados = new Array();
     }
   }
 
-  console.log(formatarDataENG('20/01/2020'))
+  // console.log(formatarDataENG('20/01/2020'))
 
   const adicionarPeriodos = async () => {
     periodos = new Array();
@@ -293,9 +300,22 @@ let resultados = new Array();
           const i = moment(formatarDataENG(inicio.value));
           const f = moment(formatarDataENG(fim.value));
 
-          fim.closest('.col.input-group').classList.contains('invalid') ? elemento.closest('.col.input-group').classList.remove('invalid') : '';
-          periodos.push({inicio: inicio.value, fim: fim.value, meses: moment([f.get('year'), f.get('month'), f.get('date')]).diff([i.get('year'), i.get('month'), i.get('date')], 'months')});
-          ok.push('true');
+          let periodoJaExiste = false
+          periodos.forEach(periodo => { 
+            if(periodo.inicio == inicio.value && periodo.fim == fim.value){
+              periodoJaExiste = true
+            }
+          });
+
+          if(periodoJaExiste){
+            SwalAlert('aviso', 'error', 'Existem períodos com a mesma data de início e a mesma data de saída!');
+            ok.push('false');
+          }else{
+            fim.closest('.col.input-group').classList.contains('invalid') ? elemento.closest('.col.input-group').classList.remove('invalid') : '';
+            periodos.push({inicio: inicio.value, fim: fim.value, meses: moment([f.get('year'), f.get('month'), f.get('date')]).diff([i.get('year'), i.get('month'), i.get('date')], 'months')});
+            ok.push('true');
+          }
+
         }else{
           fim.closest('.col.input-group').classList.add('invalid');
           ok.push('false');
@@ -306,7 +326,7 @@ let resultados = new Array();
       }
     })
     
-    ok.every(e => e == 'true') ? calcularPeriodos() : '';
+    ok.every(e => e == 'true') ? calcularPeriodos() : removerResultados();
   }
   window.escutaEventoInput = escutaEventoInput;
 
