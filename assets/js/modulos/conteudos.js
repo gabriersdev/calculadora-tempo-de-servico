@@ -22,7 +22,7 @@ div.innerHTML = `
 first.push(index);
 
 if(first.length == 1){
-  console.log('Versão 1.5.6');
+  console.log('Versão 1.5.7');
 }
 
 return div;
