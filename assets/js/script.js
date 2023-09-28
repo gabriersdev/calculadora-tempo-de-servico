@@ -163,7 +163,7 @@ let resultados = new Array();
   
     function mostrarResultados(confirmed){
       // Exibir resultados:
-      const mod = tempo.meses % (tempo.anos * 12);
+      const mod = ((tempo.meses ) % 12);
       const anos_ou_ano = tempo.anos > 1 ? 'anos' : 'ano';
       const meses_ou_mes = mod > 1 ? 'meses' : 'mês';
       // console.log(tempo.dias);
@@ -171,7 +171,7 @@ let resultados = new Array();
       if(exibir.every(e => e == true)){
         if(tempo.meses > 0){
           alterarBotao('btn btn-success', 'Calculado!');
-          exibirResultados(true, `<b>${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}</b>`, `${tempo.anos > 0 ? tempo.anos + ' ' + anos_ou_ano : ''} ${mod !== 0 && !isNaN(mod) ? 'e ' + mod + ' ' + meses_ou_mes : ''}`);
+          exibirResultados(true, `<b>${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}</b>`, `${tempo.anos > 0 ? tempo.anos + ' ' + anos_ou_ano : ''} ${mod !== 0 && mod > 0 && !isNaN(mod) ? 'e ' + mod + ' ' + meses_ou_mes : ''}`);
           // console.log(resultados);
           resultados = JSON.parse(JSON.stringify(periodos));
         }else if(!isEmpty(confirmed)){
