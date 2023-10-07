@@ -171,7 +171,7 @@ let resultados = new Array();
       if(exibir.every(e => e == true)){
         if(tempo.meses > 0){
           alterarBotao('btn btn-success', 'Calculado!');
-          exibirResultados(true, `<b>${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}</b>`, `${tempo.anos > 0 ? tempo.anos + ' ' + anos_ou_ano : ''} ${mod !== 0 && mod > 0 && !isNaN(mod) ? 'e ' + mod + ' ' + meses_ou_mes : ''}`);
+          exibirResultados(true, `<b>${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}</b>`, `${tempo.anos > 0 ? Math.floor(tempo.meses / 12) + ' ' + anos_ou_ano : ''} ${Math.floor(tempo.meses / 12) !== 0 && mod > 0 && !isNaN(mod) ? 'e ' + mod + ' ' + meses_ou_mes : ''}`);
           // console.log(resultados);
           resultados = JSON.parse(JSON.stringify(periodos));
         }else if(!isEmpty(confirmed)){
@@ -273,6 +273,7 @@ let resultados = new Array();
     const valid_regex = elemento.value.match(/^\d{2}\/\d{2}\/\d{4}$/);
     
     // console.log([valid_size, valid_inicio, valid_fim].every(v => v == true) && !isEmpty(valid_regex));
+    // console.log(valid_size, valid_inicio, valid_fim, elemento.value)
     return [valid_size, valid_inicio, valid_fim].every(v => v == true) && !isEmpty(valid_regex);
   }
   
@@ -311,9 +312,13 @@ let resultados = new Array();
             SwalAlert('aviso', 'error', 'Existem períodos com a mesma data de início e a mesma data de saída!');
             ok.push('false');
           }else{
-            fim.closest('.col.input-group').classList.contains('invalid') ? elemento.closest('.col.input-group').classList.remove('invalid') : '';
-            periodos.push({inicio: inicio.value, fim: fim.value, meses: moment([f.get('year'), f.get('month'), f.get('date')]).diff([i.get('year'), i.get('month'), i.get('date')], 'months')});
-            ok.push('true');
+            try{
+              fim.closest('.col.input-group').classList.contains('invalid') ? elemento.closest('.col.input-group').classList.remove('invalid') : '';
+              periodos.push({inicio: inicio.value, fim: fim.value, meses: moment([f.get('year'), f.get('month'), f.get('date')]).diff([i.get('year'), i.get('month'), i.get('date')], 'months')});
+              ok.push('true');
+            }catch(error){
+
+            }
           }
 
         }else{
@@ -370,3 +375,6 @@ let resultados = new Array();
     }
   }
 })();
+
+// const mod = ((51) % 12);
+// console.log(Math.floor(51 / 12), mod)
