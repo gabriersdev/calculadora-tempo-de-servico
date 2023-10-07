@@ -261,20 +261,28 @@ let resultados = new Array();
   }
   
   const verificarValorValido = (elemento) => {
-    const valid_size = elemento.value.replaceAll('/', '').length == 8;
-    const valid_inicio = elemento.value.split('/')[2] >= 1970;
-    // console.log(elemento.value, elemento.value.split('/'))
-    let valid_fim = false;
+    console.log(elemento, elemento.value)
     try{
-      valid_fim = moment(moment().format('YYYY-MM-DD')).diff([elemento.value.split('/')[2].substr(0, 4), (elemento.value.split('/')[1] - 1), elemento.value.split('/')[0]], 'days') >= 0;
+      const value = elemento.value.replaceAll('/', '');
+      const valid_size = value.length == 8;
+      // console.log(value)
+  
+      const valid_inicio = value.substr(4, 4) >= 1970;
+      // console.log(elemento.value, elemento.value.split('/'))
+      let valid_fim = false;
+      try{
+        valid_fim = moment(moment().format('YYYY-MM-DD')).diff([value.substr(4, 4), (value.substr(2, 2) - 1), (value.substr(0, 2))], 'days') >= 0;
+      }catch(error){
+        valid_fim = false;
+      }
+      const valid_regex = elemento.value.match(/^\d{2}\/\d{2}\/\d{4}$/);
+      
+      // console.log([valid_size, valid_inicio, valid_fim].every(v => v == true) && !isEmpty(valid_regex));
+      // console.log(valid_size, valid_inicio, valid_fim, elemento.value)
+      return [valid_size, valid_inicio, valid_fim].every(v => v == true) && !isEmpty(valid_regex);
     }catch(error){
-      valid_fim = false;
+      return false;
     }
-    const valid_regex = elemento.value.match(/^\d{2}\/\d{2}\/\d{4}$/);
-    
-    // console.log([valid_size, valid_inicio, valid_fim].every(v => v == true) && !isEmpty(valid_regex));
-    // console.log(valid_size, valid_inicio, valid_fim, elemento.value)
-    return [valid_size, valid_inicio, valid_fim].every(v => v == true) && !isEmpty(valid_regex);
   }
   
   const formatarDataENG = (dataBRL) => {
