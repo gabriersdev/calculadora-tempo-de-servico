@@ -261,7 +261,7 @@ let resultados = new Array();
   }
   
   const verificarValorValido = (elemento) => {
-    console.log(elemento, elemento.value)
+    // console.log(elemento, elemento.value)
     try{
       const value = elemento.value.replaceAll('/', '');
       const valid_size = value.length == 8;
@@ -275,11 +275,12 @@ let resultados = new Array();
       }catch(error){
         valid_fim = false;
       }
-      const valid_regex = elemento.value.match(/^\d{2}\/\d{2}\/\d{4}$/);
-      
+
+      // const valid_regex = elemento.value.match(/^\d{2}\/\d{2}\/\d{4}$/);
       // console.log([valid_size, valid_inicio, valid_fim].every(v => v == true) && !isEmpty(valid_regex));
-      // console.log(valid_size, valid_inicio, valid_fim, elemento.value)
-      return [valid_size, valid_inicio, valid_fim].every(v => v == true) && !isEmpty(valid_regex);
+      // console.log(valid_size, valid_inicio, valid_fim)
+
+      return [valid_size, valid_inicio, valid_fim].every(v => v == true);
     }catch(error){
       return false;
     }
