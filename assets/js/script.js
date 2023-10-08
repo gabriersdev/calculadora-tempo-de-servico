@@ -23,6 +23,11 @@ let resultados = new Array();
           document.querySelector('[data-element="periodos"]').appendChild(conteudos.periodo(length));
           $(`#inicio-periodo-${length}`).mask('00/00/0000')
           $(`#fim-periodo-${length}`).mask('00/00/0000')
+
+          setTimeout(() => {
+            $(`#inicio-periodo-${length}`).focus()
+          }, 1)
+
           tooltips();
         })
         break;
@@ -185,7 +190,6 @@ let resultados = new Array();
 
       exibirCritica(tempo.meses);
     }
-    
   }
 
   const exibirCritica = (tempo_meses) => {
