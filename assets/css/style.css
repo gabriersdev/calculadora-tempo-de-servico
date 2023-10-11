@@ -12,6 +12,7 @@
 
 *{
   font-family: 'Inter', sans-serif;
+  font-size: 1rem;
 }
 
 html{
@@ -39,6 +40,10 @@ body{
 
 h1{
   font-weight: 200;
+}
+
+h4 > b{
+  font-size: 1.5rem;
 }
 
 small{
@@ -153,5 +158,64 @@ h5 b{
 
   footer div.row{
     display: block !important;
+  }
+}
+
+.card-tempo-de-servico{
+  margin: 0;
+  border: 0;
+  border-radius: 10px;
+  
+  width: 400px;
+  background: url(../img/background-tempo.png) center / cover no-repeat;
+  padding: 1.5rem;
+  padding-bottom: 1rem;
+  
+  .tempo :is(h3, span), .descricao :is(h3, span){
+    font-family: 'Inter Tight', 'Inter', sans-serif;
+    color: #444444;
+  }
+  
+  .tempo{
+    /* background: url(./assets/img/background-tempo.png) center / cover no-repeat; */
+    backdrop-filter: blur(50px);
+    border-radius: 10px;
+    /* padding: 1rem; */
+    margin-bottom: 1rem;
+    /* display: flex; */
+    flex-direction: column;
+    place-items: flex-start;
+    place-content: center;
+    border: 1px solid #FFF;
+    
+    .tempo-titulo{
+      text-align: center;
+      font-size: 4rem;
+      font-weight: 800;
+      padding: 0.5rem 1rem;
+      /* background-color: #DDD; */
+    }
+    
+    .tempo-descricao{
+      text-align: center;
+      background-color: #FFF;
+      color: #4449;
+      border-radius: 0 0 7.5px 7.5px;
+      padding: 0.5rem 1rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+  }
+  
+  .descricao{
+    .descricao-titulo-secundario{
+      font-size: 1.25rem;
+      font-weight: 700;
+      opacity: 0.7;
+    }
+
+    .descricao-titulo{
+      font-weight: 700;
+    }
   }
 }
