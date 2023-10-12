@@ -3,17 +3,26 @@
 import { conteudos } from './modulos/conteudos.js';
 import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLinks } from './modulos/utilitarios.js';
 
-let resultados = new Array();
-let visualizacao = 1;
-let calculado = false;
-
 (() => { 
+  let resultados = new Array();
+  let visualizacao = 1;
+  let calculado = false;
+  const mode = 1;
+  
+  if(mode == 0){
+    setTimeout(() => {
+      $('#inicio-periodo-0').val('01/01/2000')
+      $('#fim-periodo-0').val('01/01/2002')
+      $('[data-action="calcular"]').click()
+    }, 500)
+  }
+  
   document.querySelectorAll('[data-recarrega-pagina]').forEach(botao => {
     botao.addEventListener('click', () => {
       window.location.reload();
     })
   })
-
+  
   const tipoVisualizao = () => {
     return visualizacao == 0 ? 'normal' : 'card';
   }
@@ -61,15 +70,15 @@ let calculado = false;
           const btn = document.querySelector('[data-action="alternar-visualizacao"]')
           const normal = $('[data-content="demais-informacoes"]')
           const card = $('[data-content="card-resultado"]')
-
+          
           if(btn.querySelector('i').classList.value == 'bi bi-card-heading'){
             btn.innerHTML = '<i class="bi bi-card-text"></i>';
             visualizacao = 1;
-            console.log('aqui');
+            // console.log('aqui');
           }else{
             btn.innerHTML = '<i class="bi bi-card-heading"></i>';
             visualizacao = 0;
-            console.log('aqui');
+            // console.log('aqui');
           }
           
           if(calculado){
@@ -268,7 +277,7 @@ let calculado = false;
     const calculo_detalhado = $('[data-content="dados-calculo-detalhado"]');
     
     removerResultados();
-
+    
     if(classe_info){
       if(tipoVisualizao() == 'normal'){
         informacao_funcionamento.classList.add('none');
@@ -280,7 +289,7 @@ let calculado = false;
       }
       
       calculado = true;
-
+      
       $(meses_calculo).html(meses_info);
       $('[data-content="card-resultado"] [data-content="meses-calculo"]').html(meses_info.replaceAll('meses', '').replaceAll('mês', ''));
       $(calculo_detalhado).html(detalhado_info);
@@ -418,15 +427,28 @@ let calculado = false;
     if(isEmpty(resultados)){
       SwalAlert('aviso', 'warning', 'Não existem resultados de cálculos para baixar');
     }else{
-      try{
-        const saida = new Array();
-        resultados.forEach((resultado, index) => {
-          saida.push(`PERÍODO ${index + 1}\nINÍCIO: ${formatar(resultado.inicio)}\nFIM: ${formatar(resultado.fim)}\nMESES: ${resultado.meses}`);
-        })
-        let blob = new Blob([saida.join('\n\n')], {type: "text/plain;charset=utf-8"});
-        saveAs(blob, `Tempo de Serviço.txt`);
-      }catch(erro){
-        console.log(erro);
+      if(tipoVisualizao() == 'normal'){
+        try{
+          const saida = new Array();
+          resultados.forEach((resultado, index) => {
+            saida.push(`PERÍODO ${index + 1}\nINÍCIO: ${formatar(resultado.inicio)}\nFIM: ${formatar(resultado.fim)}\nMESES: ${resultado.meses}`);
+          })
+          let blob = new Blob([saida.join('\n\n')], {type: "text/plain;charset=utf-8"});
+          saveAs(blob, `Tempo de Serviço.txt`);
+        }catch(erro){
+          console.log(erro);
+        }
+      }else{
+        const card = document.querySelector('[data-content="card-resultado"]')
+        $(card).css({'border-radius': 0, 'height': 'auto'})
+        html2canvas(card).then(canvas => {
+          const img = canvas;
+          const download_capture = document.querySelector('body').appendChild(document.createElement('a'))
+          download_capture.setAttribute('download', 'Tempo de Serviço.png')
+          download_capture.href = img.toDataURL('image/png').replace("image/png", "image/octet-stream");
+          download_capture.click();
+        });
+        $(card).css({'border-radius': '10px', 'height': 'auto'})
       }
     }
     
