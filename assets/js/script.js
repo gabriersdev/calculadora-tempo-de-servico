@@ -440,7 +440,8 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
         }
       }else{
         const card = document.querySelector('[data-content="card-resultado"]')
-        $(card).css({'border-radius': 0, 'height': 'auto'})
+        $(card).css({'border-radius': 0, 'height': '600px'})
+        $(card.querySelector('.barra')).css({'display': 'flex'})
         html2canvas(card).then(canvas => {
           const img = canvas;
           const download_capture = document.querySelector('body').appendChild(document.createElement('a'))
@@ -449,6 +450,7 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
           download_capture.click();
         });
         $(card).css({'border-radius': '10px', 'height': 'auto'})
+        $(card.querySelector('.barra')).css({'display': 'none'})
       }
     }
     

@@ -49,6 +49,15 @@ const principal = `<div class="principal"> <header class="mb-5"> <h1>Calculadora
       <span class="descricao-titulo-secundario">O tempo de serviço calculado é de <br></span>
       <h3 class="descricao-titulo" data-content="dados-calculo-detalhado">23 anos e 8 meses</h3>
     </div>
+    <div class="barra">
+      <div class="content">
+        <h6>gabrieszin.github.io/</h6>
+        <h6 style='font-weight: bold'>calculadora-tempo-de-servico</h6>
+      </div>
+      <div class="image">
+        <div class="img"></div>
+      </div>
+    </div>
   </div> </div> </div> </section> </main> </div>`;
 
 const footer = `<footer class="pt-4 mt-5 pt-md-5 border-top"> <div class="row"> <div class="col-12 col-md"> <small class="d-block text-muted">Desenvolvido por</small> <a href="" data-link="github-dev"><h5 class="bold">Gabriel Ribeiro</h5></a><br> <small class="d-block text-muted">&copy; <span data-ano-atual=''>2023</span></small> <small class="d-block mb-3 text-muted">Todos os direitos reservados.</small> </div> <div class="col-6 col-md"> <h5>Recursos</h5><br> <ul class="list-unstyled text-small"> <li class="mb-1"><a class="link-secondary text-decoration-none" rel="noreferrer noopener" href="#" data-link="calculadora">Calculadora</a></li> <li class="mb-1"><a class="link-secondary text-decoration-none" rel="noreferrer noopener" href="#" data-link="saiba-mais">Saiba mais</a></li> </ul> </div> <div class="col-6 col-md"> <h5>Outros projetos</h5><br> <ul class="list-unstyled text-small"> <li class="mb-1"><a class="link-secondary text-decoration-none" rel="noreferrer noopener" href="#" data-link="consumindo-api-alura">Consumindo API</a></li> <li class="mb-1"><a class="link-secondary text-decoration-none" rel="noreferrer noopener" href="#" data-link="confirmacao-cca">Confirmação CCA</a></li> <li class="mb-1"><a class="link-secondary text-decoration-none" rel="noreferrer noopener" href="#" data-link="gerador-qr-code">Gerador QR Code</a></li> </ul> </div> <div class="col-6 col-md"> <h5>Sobre</h5><br> <ul class="list-unstyled text-small"> <li class="mb-1"><a class="link-secondary text-decoration-none" href="#" data-link="github-dev">Desenvolvedor</a></li> <li class="mb-1"><a class="link-secondary text-decoration-none" href="#" data-link="github-projeto">GitHub</a></li> </ul> </div> </div> </footer>`;
