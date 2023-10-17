@@ -253,3 +253,7 @@ h5 b{
 .arial{
   font-family: 'Arial', 'Inter', sans-serif;
 }
+
+.swal2-html-container{
+  font-size: 1rem;
+}

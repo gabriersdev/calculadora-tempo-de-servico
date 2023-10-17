@@ -41,7 +41,7 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
           
           setTimeout(() => {
             $(`#inicio-periodo-${length}`).focus()
-          }, 1)
+          }, 500)
           
           tooltips();
         })
