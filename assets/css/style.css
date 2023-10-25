@@ -77,6 +77,10 @@ div.alert{
   border-radius: 0 !important;
 }
 
+[data-element="periodo"] .input-group{
+  width: min(250px, 100%) !important;
+}
+
 .input-group button{
   border-color: #DEE2E6;
   border-left: unset;
@@ -95,6 +99,16 @@ div.alert{
 
 h5 b{
   font-weight: 600;
+}
+
+@media screen and (width <= 1080px) {
+  [data-element="periodos"] .row{
+    display: block;
+
+    .col:nth-child(even) {
+      margin-top: 0.5rem;
+    }
+  }
 }
 
 @media screen and (max-width: 991px) {
@@ -154,7 +168,6 @@ h5 b{
 }
 
 .card-tempo-de-servico{
-
   margin: 0;
   border: 0;
   border-radius: 10px;
@@ -164,7 +177,7 @@ h5 b{
   place-content: center;
   flex-direction: column;
 
-  width: 400px;
+  width: min(400px, 100%);
   background: url(../img/background-tempo.png) center / cover no-repeat;
   padding: 1.5rem;
   padding-bottom: 1rem;
