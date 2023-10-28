@@ -10,6 +10,10 @@
 @import url(./componentes/no-script.css);
 @import url(./componentes/loader.css);
 
+:root{
+  --endereco-pagina: "https://github.com/gabrieszin/calculadora-tempo-de-servico";
+}
+
 *{
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
@@ -107,6 +111,33 @@ h5 b{
 
     .col:nth-child(even) {
       margin-top: 0.5rem;
+    }
+  }
+}
+
+@media print {
+  [data-element="periodos"] .row{
+    display: block;
+
+    .col:nth-child(even) {
+      margin-top: 0.5rem;
+    }
+  }
+  
+  footer{
+    .col-6{
+      display: none;
+    }
+
+    .col-12{
+      margin-bottom: 1rem;
+    }
+
+    .link-acesso{
+      width: calc(100% - 1.75rem);
+      display: block;
+      margin: 0 0.75rem;
+      margin-bottom: 1rem;
     }
   }
 }
