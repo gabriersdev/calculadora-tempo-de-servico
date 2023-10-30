@@ -456,17 +456,10 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
     
     function formatar(data){
       // const partes = data.split('-');
-      
+
       return `${data}`;
     }
   }
-
-  [1, 2, 3].forEach((e, i) => {
-    setTimeout(() => {
-      console.log('oi')
-    }, i * 1000)
-  })
-
 
 })();
 
