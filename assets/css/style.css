@@ -116,6 +116,14 @@ h5 b{
 }
 
 @media print {
+  main.row{
+    display: block;
+  }
+
+  main.row section.col:last-child{
+    margin-top: 1rem;
+  }
+
   [data-element="periodos"] .row{
     display: block;
     
