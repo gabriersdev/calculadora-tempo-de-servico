@@ -71,13 +71,15 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
           const normal = $('[data-content="demais-informacoes"]')
           const card = $('[data-content="card-resultado"]')
           
+          // console.log(btn.querySelector('i'))
+
           if(btn.querySelector('i').classList.value == 'bi bi-card-heading'){
             btn.innerHTML = '<i class="bi bi-card-text"></i>';
-            visualizacao = 1;
+            visualizacao = 0;
             // console.log('aqui');
           }else{
             btn.innerHTML = '<i class="bi bi-card-heading"></i>';
-            visualizacao = 0;
+            visualizacao = 1;
             // console.log('aqui');
           }
           
@@ -85,6 +87,8 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
             $(normal).toggleClass('none')
             $(card).toggleClass('none')
           }
+
+          // console.log(visualizacao)
         })
         break;
         
@@ -430,6 +434,8 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
   });
   
   function baixarResultados(){
+    console.log(tipoVisualizao());
+
     if(isEmpty(resultados)){
       SwalAlert('aviso', 'warning', 'Não existem resultados de cálculos para baixar');
     }else{
