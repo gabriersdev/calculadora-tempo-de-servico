@@ -323,6 +323,7 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
   
   const verificarValorValido = (elemento) => {
     // console.log(elemento, elemento.value)
+
     try{
       const value = elemento.value.replaceAll('/', '');
       const valid_size = value.length == 8;
@@ -341,6 +342,11 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
       // console.log([valid_size, valid_inicio, valid_fim].every(v => v == true) && !isEmpty(valid_regex));
       // console.log(valid_size, valid_inicio, valid_fim)
       
+      // Focando o próximo input se o input atual for o primeiro e estiver certinho
+      if([valid_size, valid_inicio, valid_fim].every(v => v == true) && elemento.id.split('-')[0] === 'inicio'){
+        $(`#fim-periodo-${elemento.id.split('-')[2]}`).focus();
+      }
+
       return [valid_size, valid_inicio, valid_fim].every(v => v == true);
     }catch(error){
       return false;
