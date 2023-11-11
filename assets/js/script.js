@@ -215,7 +215,8 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
       const anos_ou_ano = tempo.anos > 1 ? 'anos' : 'ano';
       const meses_ou_mes = mod > 1 ? 'meses' : 'mês';
       // console.log(tempo.dias);
-      
+      // console.log(mod)
+
       if(exibir.every(e => e == true)){
         if(tempo.meses > 0){
           alterarBotao('btn btn-success', 'Calculado!');
@@ -279,7 +280,7 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
     const informacao_funcionamento = document.querySelector('[data-content="informacao-funcionamento"]');
     const meses_calculo = $('[data-content="meses-calculo"]');
     const calculo_detalhado = $('[data-content="dados-calculo-detalhado"]');
-    
+
     removerResultados();
     
     if(classe_info){
@@ -296,7 +297,7 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
       
       $(meses_calculo).html(meses_info);
       $('[data-content="card-resultado"] [data-content="meses-calculo"]').html(meses_info.replaceAll('meses', '').replaceAll('mês', ''));
-      $(calculo_detalhado).html(detalhado_info);
+      $(calculo_detalhado).html(isEmpty(detalhado_info.trim()) ? meses_info : detalhado_info);
     }else{
       removerResultados();
     }
@@ -468,12 +469,8 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
     
     function formatar(data){
       // const partes = data.split('-');
-
       return `${data}`;
     }
   }
 
 })();
-
-// const mod = ((51) % 12);
-// console.log(Math.floor(51 / 12), mod)
