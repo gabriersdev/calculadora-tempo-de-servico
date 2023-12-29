@@ -5,7 +5,7 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
 
 (() => { 
   let resultados = new Array();
-  let visualizacao = 1;
+  let visualizacao = 0;
   let calculado = false;
   const mode = 1;
   
@@ -36,12 +36,12 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
           evento.preventDefault();
           const length = document.querySelectorAll('[data-element="periodo"]').length;
           document.querySelector('[data-element="periodos"]').appendChild(conteudos.periodo(length));
-          $(`#inicio-periodo-${length}`).mask('00/00/0000')
-          $(`#fim-periodo-${length}`).mask('00/00/0000')
+          $(`#inicio-periodo-${length}`).mask('00/00/0000');
+          $(`#fim-periodo-${length}`).mask('00/00/0000');
           
           setTimeout(() => {
-            $(`#inicio-periodo-${length}`).focus()
-          }, 500)
+            $(`#inicio-periodo-${length}`).focus();
+          }, 500);
           
           tooltips();
         })
@@ -213,14 +213,16 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
       const mod = ((tempo.meses ) % 12);
       const anos_ou_ano = tempo.anos > 1 ? 'anos' : 'ano';
       const meses_ou_mes = mod > 1 ? 'meses' : 'mês';
-      // console.log(tempo.dias);
-      // console.log(mod)
+
+      // Exibindo no console os valores das variáveis para formação do resultado
+      console.groupCollapsed("#1 Exibição dos valores para resultado");
+      console.table({"mod": mod, "anos_ou_ano": anos_ou_ano, "meses_ou_mes": meses_ou_mes});
+      console.groupEnd();
 
       if(exibir.every(e => e == true)){
         if(tempo.meses > 0){
           alterarBotao('btn btn-success', 'Calculado!');
           exibirResultados(true, `${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}`, `${tempo.anos > 0 ? Math.floor(tempo.meses / 12) + ' ' + anos_ou_ano : ''} ${Math.floor(tempo.meses / 12) !== 0 && mod > 0 && !isNaN(mod) ? 'e ' + mod + ' ' + meses_ou_mes : ''}`);
-          // console.log(resultados);
           resultados = JSON.parse(JSON.stringify(periodos));
         }else if(!isEmpty(confirmed)){
           alterarBotao('btn btn-success', 'Calculado!');
@@ -282,6 +284,11 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
 
     removerResultados();
     
+    // Exibindo no console resultados de cálculo
+    console.groupCollapsed("#2 Exibição dos resultados que foram calculados");
+    console.table({"classe_info": classe_info, "meses_info": meses_info.trim(), "detalhado_info": detalhado_info.trim()});
+    console.groupEnd();
+
     if(classe_info){
       if(tipoVisualizao() == 'normal'){
         informacao_funcionamento.classList.add('none');
@@ -405,17 +412,22 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
   }
   
   window.addEventListener("load", function () {
+    // Carregar conteúdo na página
     const body = this.document.querySelector('body');
     body.innerHTML += conteudos.principal;
+    body.innerHTML += conteudos.footer;
     
+    // Atribuindo máscaras para os primeiros inputs carregados
     $(document).ready(function(){
       $(`#inicio-periodo-0`).mask('00/00/0000');
       $(`#fim-periodo-0`).mask('00/00/0000');
     });
     
-    body.innerHTML += conteudos.footer;
-    const overlay2 = document.querySelector(".overlay-2");
-    overlay2.style.display = "none";
+
+    // Ocultar loading
+    document.querySelector(".overlay-2").style.display = "none";
+    
+    // Chamando funções
     atribuirLinks();
     atribuirAcoes();
     tooltips();
@@ -457,6 +469,10 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
       return `${data}`;
     }
   }
+
+  // Definindo globalmente as funções
+  window.removerPeriodo = removerPeriodo;
+  window.escutaEventoInput = escutaEventoInput;
 
   window.removerPeriodo = removerPeriodo;
   window.escutaEventoInput = escutaEventoInput;
