@@ -104,7 +104,6 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
     elemento.remove();
     $(target).tooltip('dispose');
   }
-  window.removerPeriodo = removerPeriodo;
   
   const alterarBotao = (classe, HTML) => {
     const botao = document.querySelector('[data-action="calcular"]');
@@ -327,25 +326,17 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
   }
   
   const verificarValorValido = (elemento) => {
-    // console.log(elemento, elemento.value)
-
     try{
       const value = elemento.value.replaceAll('/', '');
       const valid_size = value.length == 8;
-      // console.log(value)
       
       const valid_inicio = value.substr(4, 4) >= 1970;
-      // console.log(elemento.value, elemento.value.split('/'))
       let valid_fim = false;
       try{
         valid_fim = moment(moment().format('YYYY-MM-DD')).diff([value.substr(4, 4), (value.substr(2, 2) - 1), (value.substr(0, 2))], 'days') >= 0;
       }catch(error){
         valid_fim = false;
       }
-      
-      // const valid_regex = elemento.value.match(/^\d{2}\/\d{2}\/\d{4}$/);
-      // console.log([valid_size, valid_inicio, valid_fim].every(v => v == true) && !isEmpty(valid_regex));
-      // console.log(valid_size, valid_inicio, valid_fim)
       
       // Focando o próximo input se o input atual for o primeiro e estiver certinho
       if([valid_size, valid_inicio, valid_fim].every(v => v == true) && elemento.id.split('-')[0] === 'inicio'){
@@ -366,8 +357,6 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
       return null;
     }
   }
-  
-  // console.log(formatarDataENG('20/01/2020'))
   
   const adicionarPeriodos = async () => {
     periodos = new Array();
@@ -414,15 +403,14 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
     
     ok.every(e => e == 'true') ? calcularPeriodos() : removerResultados();
   }
-  window.escutaEventoInput = escutaEventoInput;
   
   window.addEventListener("load", function () {
     const body = this.document.querySelector('body');
     body.innerHTML += conteudos.principal;
     
     $(document).ready(function(){
-      $(`#inicio-periodo-0`).mask('00/00/0000')
-      $(`#fim-periodo-0`).mask('00/00/0000')
+      $(`#inicio-periodo-0`).mask('00/00/0000');
+      $(`#fim-periodo-0`).mask('00/00/0000');
     });
     
     body.innerHTML += conteudos.footer;
@@ -435,8 +423,6 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
   });
   
   function baixarResultados(){
-    console.log(tipoVisualizao());
-
     if(isEmpty(resultados)){
       SwalAlert('aviso', 'warning', 'Não existem resultados de cálculos para baixar');
     }else{
@@ -468,9 +454,11 @@ import { SwalAlert, isEmpty, tooltips, verificarInputsRecarregamento, atribuirLi
     }
     
     function formatar(data){
-      // const partes = data.split('-');
       return `${data}`;
     }
   }
+
+  window.removerPeriodo = removerPeriodo;
+  window.escutaEventoInput = escutaEventoInput;
 
 })();
