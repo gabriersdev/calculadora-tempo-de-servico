@@ -2,6 +2,15 @@
   --cor-background-loader: #F0F0F0;
   --cor-loader: #3049FF;
 
+  --txt-success-blue: #0D6EFD;
+  --txt-error: #AA3939;
+
+  --color-txt-input: #000;
+
+  --primary-color-btn-input: #DEE2E6;
+  --primary-color-btn-light: #DEE2E6;
+  --border-color-btn-light: #CED1DD;
+
   --cinza: #353535;
   --branco: #F6F6F6;
 }

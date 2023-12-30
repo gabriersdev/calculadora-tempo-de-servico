@@ -9,13 +9,15 @@
 
 @import url(./componentes/no-script.css);
 @import url(./componentes/loader.css);
+@import url(./elementos/card.css);
+@import url(./elementos/link-acesso.css);
 
 :root{
   --endereco-pagina: "https://github.com/gabrieszin/calculadora-tempo-de-servico";
 }
 
 *{
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-family-default);
   font-size: 1rem;
 }
 
@@ -60,16 +62,16 @@ div.alert{
 }
 
 .text-success{
-  color: #0D6EFD !important;
+  color: var(--txt-success-blue) !important;
 }
 
 .text-error{
-  color: #AA3939 !important;
+  color: var(--txt-error) !important;
 }
 
 .invalid label,
 .invalid input{
-  border: 1px solid #AA3939 !important;
+  border: 1px solid var(--txt-error) !important;
   border-radius: 0 !important;
 }
 
@@ -86,19 +88,19 @@ div.alert{
 }
 
 .input-group button{
-  border-color: #DEE2E6;
+  border-color: var(--primary-color-btn-input);
   border-left: unset;
 }
 
 .input-group button:is(:focus, :hover){
-  background-color: #DEE2E6;
-  border-color: #DEE2E6;
-  color: #000;
+  background-color: var(--primary-color-btn-input);
+  border-color: var(--primary-color-btn-input);
+  color: var(--color-txt-input);
 }
 
 .btn-light{
-  border-color: #CED1DD;
-  background-color: #DEE2E6;
+  border-color: var(--border-color-btn-light);
+  background-color: var(--primary-color-btn-input);
 }
 
 h5 b{
@@ -113,28 +115,6 @@ h5 b{
       margin-top: 0.5rem;
     }
   }
-}
-
-/* Link acesso, que aparece no modo de impressão */
-.link-acesso{
-  margin-top: 3rem;
-  padding: 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  color: rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
-  position: relative;
-
-  .bi{
-    display: inline;
-    position: absolute;
-    right: -0.5rem;
-    color: #808080;
-  }
-}
-
-.link-acesso b{
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.6);
 }
 
 @media print {
@@ -226,94 +206,6 @@ h5 b{
   
   footer div.row{
     display: block !important;
-  }
-}
-
-.card-tempo-de-servico{
-  margin: 0;
-  border: 0;
-  border-radius: 10px;
-  position: relative;
-  
-  display: flex;
-  place-content: center;
-  flex-direction: column;
-  
-  width: min(400px, 100%);
-  background: url(../img/background-tempo.png) center / cover no-repeat;
-  padding: 1.5rem;
-  padding-bottom: 1rem;
-  
-  .tempo :is(h3, span), .descricao :is(h3, span){
-    font-family: 'Inter Tight', 'Inter', sans-serif;
-    color: #444444;
-  }
-  
-  .tempo{
-    /* background: url(./assets/img/background-tempo.png) center / cover no-repeat; */
-    backdrop-filter: blur(50px);
-    border-radius: 10px;
-    /* padding: 1rem; */
-    margin-bottom: 1rem;
-    /* display: flex; */
-    flex-direction: column;
-    place-items: flex-start;
-    place-content: center;
-    border: 1px solid #FFF;
-    
-    .tempo-titulo{
-      text-align: center;
-      font-size: 4rem;
-      font-weight: 800;
-      padding: 0.5rem 1rem;
-      /* background-color: #DDD; */
-    }
-    
-    .tempo-descricao{
-      text-align: center;
-      background-color: #FFF;
-      color: #4449;
-      border-radius: 0 0 7.5px 7.5px;
-      padding: 0.5rem 1rem;
-      font-size: 1.25rem;
-      font-weight: 700;
-    }
-  }
-  
-  .descricao{
-    .descricao-titulo-secundario{
-      font-size: 1.25rem;
-      font-weight: 700;
-      opacity: 0.7;
-    }
-    
-    .descricao-titulo{
-      font-weight: 700;
-    }
-  }
-  
-  .barra{
-    position: absolute;
-    bottom: 0.5rem;
-    left: 0.5rem;
-    border-radius: 5px;
-    padding: 0.5rem;
-    display: none;
-    flex-direction: column-reverse;
-    
-    .content{
-      background: rgb(255, 255, 255, 0.2);
-      padding: 0.5rem 0.75rem;
-      border-radius: 5px;
-    }
-    
-    .img::after{
-      content: "\F1F3";
-      font-family: 'bootstrap-icons';
-      font-size: 1.25rem;
-      display: block;
-      margin-bottom: 0.25rem;
-    }
   }
 }
 
