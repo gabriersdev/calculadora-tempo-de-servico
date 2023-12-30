@@ -151,7 +151,8 @@ const calcularPeriodos = async (periodos, resultados) => {
     
     const anos = fim.diff(inicio, 'years');
     const meses = fim.diff(inicio, 'months');
-    const dias = fim.diff(inicio, 'days');
+    // Caso o período inicie e termine no mesmo mês, desconsiderar 1 dia, para que o cálculo não add. tempo de serviço a mais
+    const dias = fim.diff(inicio, 'days') == 30 && inicio.get("month") == fim.get("month") ? 29 : fim.diff(inicio, 'days');
     
     return promise.then(() => new Promise((resolve) => {
       filtro(anos, meses, dias, inicio, fim, resolve);
@@ -178,6 +179,8 @@ const calcularPeriodos = async (periodos, resultados) => {
         alterarBotao('btn btn-success', 'Calculado!');
         exibirResultados(true, `<b>Período insuficiente</b>`, `A soma dos perídos informados é menor que 1 mês`);
         resultados = JSON.parse(JSON.stringify(periodos));
+      }else{
+        exibirResultados(false, '', '');
       }
     }else{
       exibirResultados(false, '', '');
@@ -273,6 +276,7 @@ const removerResultados = (visualizacao) => {
   if(visualizacao == 'card'){
     $('[data-content="demais-informacoes"]').addClass('none');
   }else if(visualizacao == 'normal'){
+    $('[data-content="demais-informacoes"]').addClass('none');
     $('[data-content="card-resultado"]').addClass('none');
   }else{
     $('[data-content="demais-informacoes"]').addClass('none');
