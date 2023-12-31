@@ -9,7 +9,7 @@
   flex-direction: column;
   
   width: min(400px, 100%);
-  background: url(../img/background-tempo.png) center / cover no-repeat;
+  background: url(../../img/background-tempo.png) center / cover no-repeat;
   padding: 1.5rem;
   padding-bottom: 1rem;
   

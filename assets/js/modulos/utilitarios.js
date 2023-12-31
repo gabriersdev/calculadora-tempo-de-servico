@@ -161,8 +161,8 @@ function atribuirLinks(){
       link.href = 'https://gabrieszin.github.io/my-courses-alura/';
       break;
 
-      case 'confirmacao-cca':
-      link.href = 'https://gabrieszin.github.io/confirmacao-cca/';
+      case 'cca':
+      link.href = 'https://gabrieszin.github.io/cca/';
       break;
 
       case 'gerador-qr-code':
