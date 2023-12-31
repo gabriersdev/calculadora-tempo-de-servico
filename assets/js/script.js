@@ -8,6 +8,36 @@ let visualizacao = 0;
 let calculado = false;
 
 (() => {
+  
+  // Apresentação do Projeto no console
+  const dados_do_projeto = {
+    "Project name": "Calculadora de Tempo de Serviço",
+    "Developed by": "Gabriel Ribeiro",
+    "Version": "2.5.0",
+    "Release date": "2023-12-31",
+    "Hostname": new URL(window.location).hostname,
+    "Origin": new URL(window.location).origin,
+    "Status": "Active"
+  };
+  
+  const novas_funcionalidades = [
+    "Alterando contabilização de períodos com data de ínicio e fim no mesmo mês.",
+    "Corrigindo bug de download dos arquivos de tempo de serviço contabilizados."
+  ];
+  
+  Object.freeze(novas_funcionalidades);
+  Object.freeze(dados_do_projeto);
+  
+  // Exibindo dados
+  console.groupCollapsed(`${dados_do_projeto["Project name"]}, Version ${dados_do_projeto["Version"]}`);
+  console.table(dados_do_projeto);
+  console.groupEnd();
+  
+  console.groupCollapsed('New features');
+  novas_funcionalidades.toSorted((a, b) => a.localeCompare(b)).forEach((feature) => {console.info(`${feature}`)});
+  console.groupEnd();
+  // Fim da apresentação do projeto
+  
   let resultados = new Array();
   let periodos = new Array();
   const mode = 1;
@@ -61,7 +91,7 @@ let calculado = false;
           const btn = document.querySelector('[data-action="alternar-visualizacao"]')
           const normal = $('[data-content="demais-informacoes"]');
           const card = $('[data-content="card-resultado"]');
-
+          
           if(btn.querySelector('i').classList.value == 'bi bi-card-heading'){
             btn.innerHTML = '<i class="bi bi-card-text"></i>';
             visualizacao = 0;
@@ -113,7 +143,7 @@ let calculado = false;
         $('[data-action="calcular"]').click();
       }, 500);
     }
-
+    
     // Alterando icon de acordo com o tipo de visualização
     if(visualizacao == 0){
       $(`[data-action="alternar-visualizacao"] i`).attr("class", "bi bi-card-text")
