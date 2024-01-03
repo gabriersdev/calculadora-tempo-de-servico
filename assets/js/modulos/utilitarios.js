@@ -1,124 +1,99 @@
 const isEmpty = (valor) => {
-  if(typeof valor == 'string'){
-    return valor == undefined || valor == null || valor.length <= 0;
-  }else if(Array.isArray(valor)){
+  if (typeof valor === 'string') {
+    return valor === undefined || valor === null || valor.length <= 0;
+  } if (Array.isArray(valor)) {
     return valor.length <= 0;
-  }else if(typeof valor == 'object'){
+  } if (typeof valor === 'object') {
     return Object.keys(valor).length <= 0;
-  }else{
-    return valor == undefined || valor == null
   }
-}
+    return valor === undefined || valor === null;
+};
 
-const capitalize = (valor) => {
-  return valor.charAt(0).toUpperCase() + valor.substr(1, valor.length);
-}
+const capitalize = (valor) => valor.charAt(0).toUpperCase() + valor.substr(1, valor.length);
 
 const atualizarDatas = () => {
   const dataAtual = new Date();
-  document.querySelectorAll("[data-ano-atual]").forEach(area => {
+  document.querySelectorAll('[data-ano-atual]').forEach((area) => {
     area.textContent = `${dataAtual.getFullYear()}`;
-  })
-} 
+  });
+}; 
 
-const controleFechamentoModal = () => {
-  const modais = document.querySelectorAll('.modal');
-  modais.forEach(modal => {
-    const btnFecha = modal.querySelector('[data-modal-fecha]');
-    btnFecha.addEventListener('click', () => {
-      $('#' + modal.id).modal('hide');
-    })
-  })
-}
+function sanitizarString(string) {
+  let string_replace = '';
 
-function sanitizarString(string){
-  if(typeof string == 'string'){
+  if (typeof string === 'string') {
     const substituir = [
       {
         original: '-',
-        subst: ''
+        subst: '',
       },
       {
         original: '(',
-        subst: ''
+        subst: '',
       },
       {
         original: ')',
-        subst: ''
+        subst: '',
       },
       {
         original: ' ',
-        subst: ''
+        subst: '',
       },
-    ]
+    ];
 
-    substituir.forEach(substituicao => {
-      string = string.replace(substituicao.original, substituicao.subst)
-    })
+    substituir.forEach((substituicao) => {
+      string_replace = string.replace(substituicao.original, substituicao.subst);
+    });
 
-    return string.trim();
-  }else{
+    return string_replace.trim();
+  } 
     console.log('O tipo do parâmetro passado não é uma string.');
     return null;
-  }
 }
 
-function tooltips(){
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
+function tooltips() {
+  $(() => {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
 }
 
-function popovers(){
-  $(document).ready(function(){
+function popovers() {
+  $(document).ready(() => {
     $('[data-bs-toggle="popover"]').popover();  
   });
 }
 
-async function SwalAlert(tipo, icon, title, text, mensagem){
-  tipo = tipo.toLowerCase().trim();
-  if(tipo == 'confirmacao'){
+async function SwalAlert(tipo, icon, title, text, mensagem) {
+  const tipoLC = tipo.toLowerCase().trim();
+  if (tipoLC === 'confirmacao') {
     const dialog = await Swal.fire({
-      icon: icon,
-      title: title,
-      text: text,
+      icon,
+      title,
+      text,
       showCancelButton: true,
       confirmButtonText: 'Sim',
-      focusCancel: true
-    })
+      focusCancel: true,
+    });
 
-    return new Promise((resolve, reject) => {
-      resolve({isConfirmed: dialog.isConfirmed})
-    })
+    return new Promise((resolve) => {
+      resolve({ isConfirmed: dialog.isConfirmed });
+    });
   }
 
-  else if(tipo == 'aviso'){
+  if (tipoLC === 'aviso') {
     Swal.fire({
-      icon: icon,
-      title: title,
-      text: text
-    })
-  }
-
-  else if(tipo == 'error'){
+      icon,
+      title,
+      text,
+    });
+  } else if (tipoLC === 'error') {
     Swal.fire({
-      icon: icon,
-      title: title,
-      text: text,
-      footer: mensagem
-    }) 
+      icon,
+      title,
+      text,
+      footer: mensagem,
+    }); 
   }
-}
-
-function resizeTextArea(textarea){
-  // Créditos https://www.instagram.com/reel/CrdgXF3AECg/
-  const initialHeight = parseInt(getComputedStyle(textarea).getPropertyValue('height'));
-  textarea.addEventListener('input', () => {
-    textarea.style.height = `${initialHeight}px`;
-    const scrollHeight = textarea.scrollHeight;
-    const newHeight = textarea.scrollHeight - initialHeight;
-    textarea.style.height = `${newHeight < scrollHeight ? scrollHeight : newHeight}px`;
-  });
 }
 
 const verificarInputsRecarregamento = () => {
@@ -130,13 +105,13 @@ const verificarInputsRecarregamento = () => {
   //     }
   //   })
   // }
-}
+};
 
-function atribuirLinks(){
+function atribuirLinks() {
   const linkElementos = document.querySelectorAll('[data-link]');
   
-  linkElementos.forEach(link => {
-    switch(link.dataset.link.toLowerCase().trim()){        
+  linkElementos.forEach((link) => {
+    switch (link.dataset.link.toLowerCase().trim()) {        
       case 'github-dev':
       link.href = 'https://github.com/gabrieszin';
       break;
@@ -175,19 +150,17 @@ function atribuirLinks(){
     }
     
     link.setAttribute('rel', 'noopener noreferrer');
-  })
+  });
 }
 
-export{
+export {
   isEmpty,
   capitalize,
   atualizarDatas,
-  controleFechamentoModal,
   sanitizarString,
   tooltips,
   popovers,
   SwalAlert,
-  resizeTextArea,
   verificarInputsRecarregamento,
-  atribuirLinks
-}
+  atribuirLinks,
+};
