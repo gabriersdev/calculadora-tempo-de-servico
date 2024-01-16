@@ -191,9 +191,11 @@ const calcularPeriodos = async (periodos) => {
     // Exibir resultados:
     let resultados = null;
     const mod = ((tempo.meses) % 12);
+    tempo.anos = mod;
+
     const anos_ou_ano = tempo.anos > 1 ? 'anos' : 'ano';
     const meses_ou_mes = mod > 1 ? 'meses' : 'mês';
-    
+
     // Exibindo no console os valores das variáveis para formação do resultado
     console.groupCollapsed('#1 Exibição dos valores para resultado');
     console.table({ mod, anos_ou_ano, meses_ou_mes });
@@ -202,7 +204,7 @@ const calcularPeriodos = async (periodos) => {
     if (exibir.every((e) => e === true)) {
       if (tempo.meses > 0) {
         alterarBotao('btn btn-success', 'Calculado!');
-        exibirResultados(true, `${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}`, `${tempo.anos > 0 ? `${Math.floor(tempo.meses / 12)} ${anos_ou_ano}` : ''} ${Math.floor(tempo.meses / 12) !== 0 && mod > 0 && Number.isNaN(mod) ? `e ${mod} ${meses_ou_mes}` : ''}`);
+        exibirResultados(true, `${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}`, `${tempo.anos > 0 ? `${Math.floor(tempo.meses / 12)} ${anos_ou_ano}` : ''} ${Math.floor(tempo.meses / 12) !== 0 && (tempo.meses / (mod * 12) !== 0) ? `e ${mod} ${meses_ou_mes}` : ''}`);
         resultados = JSON.parse(JSON.stringify(periodos));
       } else if (!isEmpty(confirmed)) {
         alterarBotao('btn btn-success', 'Calculado!');

@@ -43,7 +43,7 @@ import {
 
   let resultados = new Array();
   let periodos = new Array();
-  const mode = 0;
+  const mode = 2;
 
   document.querySelectorAll('[data-recarrega-pagina]').forEach((botao) => {
     botao.addEventListener('click', () => {
@@ -130,6 +130,40 @@ import {
         $('#fim-periodo-0').val('01/01/2002');
         $('[data-action="calcular"]').click();
       }, 500);
+    } else if (mode === 2) {
+      $('[data-action="adicionar-periodo"]').click();
+      $('[data-action="adicionar-periodo"]').click();
+      $('[data-action="adicionar-periodo"]').click();
+      $('[data-action="adicionar-periodo"]').click();
+      $('[data-action="adicionar-periodo"]').click();
+      $('[data-action="adicionar-periodo"]').click();
+      $('[data-action="adicionar-periodo"]').click();
+
+      $('#inicio-periodo-0').val('07/04/2020');
+      $('#fim-periodo-0').val('08/06/2020');
+
+      $('#inicio-periodo-1').val('18/12/2019');
+      $('#fim-periodo-1').val('23/01/2020');
+
+      $('#inicio-periodo-2').val('20/08/2020');
+      $('#fim-periodo-2').val('03/03/2021');
+
+      $('#inicio-periodo-3').val('08/03/2021');
+      $('#fim-periodo-3').val('17/05/2021');
+
+      $('#inicio-periodo-4').val('22/06/2021');
+      $('#fim-periodo-4').val('15/02/2022');
+
+      $('#inicio-periodo-5').val('02/06/2022');
+      $('#fim-periodo-5').val('09/04/2023');
+
+      $('#inicio-periodo-6').val('24/03/2023');
+      $('#fim-periodo-6').val('16/01/2024');
+
+      $('#inicio-periodo-7').val('14/07/2011');
+      $('#fim-periodo-7').val('30/09/2011');
+
+      $('[data-action="calcular"]').click();
     }
   });
 
