@@ -42,9 +42,44 @@ const principal = '<div class="principal"> <header class="mb-5"> <h1>Calculadora
 
 const footer = '<footer class="pt-4 mt-5 pt-md-5 border-top"><div class="row"><div class="col-12 col-md"><small class="d-block text-muted">Desenvolvido por</small><a href="" data-link="github-dev"><h5 class="bold">Gabriel Ribeiro</h5></a><br><small class="d-block text-muted">&copy;<span data-ano-atual=\'\'>2023</span></small> <small class="d-block mb-3 text-muted">Todos os direitos reservados.</small></div><div class="col-6 col-md"><h5>Recursos</h5><br><ul class="list-unstyled text-small"><li class="mb-1"><a class="link-secondary text-decoration-none" rel="noreferrer noopener" href="#" data-link="calculadora">Calculadora</a></li><li class="mb-1"><a class="link-secondary text-decoration-none" rel="noreferrer noopener" href="#" data-link="saiba-mais">Saiba mais</a></li></ul></div><div class="col-6 col-md"><h5>Outros projetos</h5><br><ul class="list-unstyled text-small"><li class="mb-1"><a class="link-secondary text-decoration-none" rel="noreferrer noopener" href="#" data-link="consumindo-api-alura">Consumindo API</a></li><li class="mb-1"><a class="link-secondary text-decoration-none" rel="noreferrer noopener" href="#" data-link="cca">CCA</a></li> <li class="mb-1"><a class="link-secondary text-decoration-none" rel="noreferrer noopener" href="#" data-link="gerador-qr-code">Gerador QR Code</a></li></ul></div><div class="col-6 col-md"><h5>Sobre</h5><br><ul class="list-unstyled text-small"><li class="mb-1"><a class="link-secondary text-decoration-none" href="#" data-link="github-dev">Desenvolvedor</a></li><li class="mb-1"><a class="link-secondary text-decoration-none" href="#" data-link="github-projeto">GitHub</a></li></ul></div><a class="link-acesso none" data-link="github-projeto"><div><i class="bi bi-arrow-up-right-square-fill"></i><p>Acesse&nbsp;<b>github.com/gabrieszin/calculadora-tempo-de-servico</b></p></div></a></div></footer>';
 
+const periodos_teste = [
+  {
+    inicio: '07/04/2020',
+    fim: '08/06/2020',
+  }, {
+    inicio: '18/12/2019',
+    fim: '23/01/2020',
+  },
+  {
+    inicio: '20/08/2020',
+    fim: '03/03/2021',
+  },
+  {
+    inicio: '08/03/2021',
+    fim: '17/05/2021',
+  },
+  {
+    inicio: '22/06/2021',
+    fim: '15/02/2022',
+  },
+  {
+    inicio: '02/06/2022',
+    fim: '09/04/2023',
+  },
+  {
+    inicio: '24/03/2023',
+    fim: '16/01/2024',
+  },
+  {
+    inicio: '14/07/2011',
+    fim: '30/09/2011',
+  },
+];
+
 export {
   periodo,
   principal,
   footer,
   critica,
+  periodos_teste,
 };
