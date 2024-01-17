@@ -110,6 +110,41 @@ const removerResultados = (tipo) => {
   }
 };
 
+// Criar PDF com os resultados
+const criarPDFResultados = (resultados, calculo) => { 
+  if (isEmpty(resultados)) {
+    SwalAlert('aviso', 'warning', 'Não existem resultados de cálculos para baixar');
+  } else {
+    // TODO - Add. try/catch para capturar exceptions
+    // Criando documento
+    let txt = `
+    Calculadora de Tempo de Serviço
+    Calculado em ${moment().format('DD/MM/YYYY HH:mm:ss')}
+    
+    Resultado
+    - Total de meses: ${calculo.meses ?? '-'}
+    - Total de anos: ${calculo.anos ?? '-'}
+    
+    Períodos
+    `;
+    
+    resultados.toSorted((a, b) => b.meses - a.meses).forEach((resultado, index) => {
+      txt += `
+      Período ${index + 1}
+      - Início: ${resultado.inicio}
+      - Fim: ${resultado.fim}
+      - Meses: ${resultado.meses}
+      `;
+    });
+    
+    // Criando e baixando PDF
+    const doc = window.jspdf.jsPDF();
+    doc.setFontSize(12);
+    doc.text(txt, 10, 10);
+    doc.save('Tempo de Serviço.pdf');
+  }
+};
+
 const exibirResultados = (classe_info, meses_info, detalhado_info) => {
   const informacao_funcionamento = document.querySelector('[data-content="informacao-funcionamento"]');
   const meses_calculo = $('[data-content="meses-calculo"]');
@@ -191,7 +226,7 @@ const calcularPeriodos = async (periodos) => {
     // Exibir resultados:
     let resultados = null;
     const mod = ((tempo.meses) % 12);
-
+    
     // Ajustando valores de anos e meses para exibição
     if (tempo.anos === 0 && tempo.meses % 12 > 0) {
       // Em períodos inferiores a 1 ano, o valor de anos é somado incorretamente, por isso a correção
@@ -200,10 +235,10 @@ const calcularPeriodos = async (periodos) => {
       // Quando o período de meses for divisível por 12 e não tiver resto
       tempo.anos = Math.floor(tempo.meses / 12);
     }
-
+    
     const anos_ou_ano = tempo.anos > 1 ? 'anos' : 'ano';
     const meses_ou_mes = mod > 1 ? 'meses' : 'mês';
-
+    
     // Exibindo no console os valores das variáveis para formação do resultado
     console.groupCollapsed('#1 Exibição dos valores para resultado');
     console.table({ mod, anos_ou_ano, meses_ou_mes });
@@ -213,7 +248,7 @@ const calcularPeriodos = async (periodos) => {
       if (tempo.meses > 0) {
         alterarBotao('btn btn-success', 'Calculado!');
         let detalhado_info = 'xxx';
-
+        
         if (tempo.anos > 0 && tempo.meses % 12 > 0) {
           detalhado_info = `${Math.floor(tempo.meses / 12)} ${anos_ou_ano} e ${tempo.meses % 12} ${meses_ou_mes}`;
         } else if (tempo.anos > 0) {
@@ -221,7 +256,7 @@ const calcularPeriodos = async (periodos) => {
         } else {
           detalhado_info = `${tempo.meses} ${meses_ou_mes}`;
         }
-
+        
         exibirResultados(true, `${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}`, detalhado_info);
         resultados = JSON.parse(JSON.stringify(periodos));
       } else if (!isEmpty(confirmed)) {
@@ -238,14 +273,14 @@ const calcularPeriodos = async (periodos) => {
     exibirCritica(tempo.meses);
     return resultados;
   }
-
+  
   function filtro(anos, meses, dias, inicio, fim, resolve) {
     function adicionar() {
       tempo.push('anos', anos);
       tempo.push('meses', meses);
       tempo.push('dias', dias);
     }
-
+    
     recebidos.push({ anos, meses, dias });
     if (meses < 0) {
       SwalAlert('aviso', 'error', 'Período inválido!', `A data de encerramento ${fim.format('DD/MM/YYYY')} é anterior a data de ínicio ${inicio.format('DD/MM/YYYY')}. Por favor, corrija e tente novamente.`);
@@ -274,7 +309,6 @@ const calcularPeriodos = async (periodos) => {
     } else {
       adicionar();
       exibir.push(true);
-      // console.log(periodos)
     }
     
     resolve();
@@ -369,21 +403,28 @@ const escutaEventoInput = (elemento) => {
   }
 };
 
-const baixarResultados = (resultados) => {
+const baixarResultados = (resultados, calculo) => {
   function formatar(data) {
     return `${data}`;
   }
-
+  
   if (isEmpty(resultados)) {
     SwalAlert('aviso', 'warning', 'Não existem resultados de cálculos para baixar');
   } else if (tipoVisualizao() === 'normal') {
     try {
-      const saida = new Array();
-      resultados.forEach((resultado, index) => {
-        saida.push(`PERÍODO ${index + 1}\nINÍCIO: ${formatar(resultado.inicio)}\nFIM: ${formatar(resultado.fim)}\nMESES: ${resultado.meses}`);
-      });
-      const blob = new Blob([saida.join('\n\n')], { type: 'text/plain;charset=utf-8' });
-      saveAs(blob, 'Tempo de Serviço.txt');
+      const mode = 0;
+      if (mode) {
+        // Resultado em TXT
+        const saida = new Array();
+        resultados.forEach((resultado, index) => {
+          saida.push(`PERÍODO ${index + 1}\nINÍCIO: ${formatar(resultado.inicio)}\nFIM: ${formatar(resultado.fim)}\nMESES: ${resultado.meses}`);
+        });
+        const blob = new Blob([saida.join('\n\n')], { type: 'text/plain;charset=utf-8' });
+        saveAs(blob, 'Tempo de Serviço.txt');
+      } else {
+        // Resultado em PDF
+        criarPDFResultados(resultados, calculo);
+      }
     } catch (erro) {
       console.log(erro);
     }
@@ -422,6 +463,10 @@ const alternarVisualizacaoTrocaCard = () => {
   }
 };
 
+const acionarFuncaoBaixarResultados = (resultados) => {
+  baixarResultados(resultados, { meses: tempo.meses, anos: tempo.anos });
+};
+
 export {
   removerPeriodo,
   alterarBotao,
@@ -433,6 +478,6 @@ export {
   escutaEventoInput,
   verificarValorValido,
   formatarDataENG,
-  baixarResultados,
   alternarVisualizacaoTrocaCard,
+  acionarFuncaoBaixarResultados,
 };

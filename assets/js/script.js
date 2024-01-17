@@ -7,8 +7,8 @@ import {
   alterarBotao,
   adicionarPeriodos,
   escutaEventoInput,
-  baixarResultados,
   alternarVisualizacaoTrocaCard,
+  acionarFuncaoBaixarResultados,
 } from './modulos/funcoes.js';
 
 (() => {
@@ -45,7 +45,7 @@ import {
   let periodos = new Array();
 
   // Modo de execução - 0: Desenvolvimento, 1: Produção, 2: Teste
-  const mode = 1;
+  const mode = 2;
 
   document.querySelectorAll('[data-recarrega-pagina]').forEach((botao) => {
     botao.addEventListener('click', () => {
@@ -76,7 +76,7 @@ import {
         case 'baixar-resultados':
           acao.addEventListener('click', (evento) => {
             evento.preventDefault();
-            baixarResultados(resultados);
+            acionarFuncaoBaixarResultados(resultados);
           });
           break;
 
@@ -145,7 +145,7 @@ import {
       $('[data-action="calcular"]').click();
     }
   });
-
+  
   // Definindo globalmente as funções
   window.removerPeriodo = removerPeriodo;
   window.escutaEventoInput = escutaEventoInput;
