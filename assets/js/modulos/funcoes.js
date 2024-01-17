@@ -191,7 +191,15 @@ const calcularPeriodos = async (periodos) => {
     // Exibir resultados:
     let resultados = null;
     const mod = ((tempo.meses) % 12);
-    tempo.anos = mod;
+
+    // Ajustando valores de anos e meses para exibição
+    if (tempo.anos === 0 && tempo.meses % 12 > 0) {
+      // Em períodos inferiores a 1 ano, o valor de anos é somado incorretamente, por isso a correção
+      tempo.anos = tempo.meses % 12; 
+    } else if (tempo.meses >= 12) {
+      // Quando o período de meses for divisível por 12 e não tiver resto
+      tempo.anos = Math.floor(tempo.meses / 12);
+    }
 
     const anos_ou_ano = tempo.anos > 1 ? 'anos' : 'ano';
     const meses_ou_mes = mod > 1 ? 'meses' : 'mês';
@@ -204,7 +212,17 @@ const calcularPeriodos = async (periodos) => {
     if (exibir.every((e) => e === true)) {
       if (tempo.meses > 0) {
         alterarBotao('btn btn-success', 'Calculado!');
-        exibirResultados(true, `${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}`, `${tempo.anos > 0 ? `${Math.floor(tempo.meses / 12)} ${anos_ou_ano}` : ''} ${Math.floor(tempo.meses / 12) !== 0 && (tempo.meses / (mod * 12) !== 0) ? `e ${mod} ${meses_ou_mes}` : ''}`);
+        let detalhado_info = 'xxx';
+
+        if (tempo.anos > 0 && tempo.meses % 12 > 0) {
+          detalhado_info = `${Math.floor(tempo.meses / 12)} ${anos_ou_ano} e ${tempo.meses % 12} ${meses_ou_mes}`;
+        } else if (tempo.anos > 0) {
+          detalhado_info = `${Math.floor(tempo.meses / 12)} ${anos_ou_ano}`;
+        } else {
+          detalhado_info = `${tempo.meses} ${meses_ou_mes}`;
+        }
+
+        exibirResultados(true, `${tempo.meses} ${tempo.meses > 1 ? 'meses' : 'mês'}`, detalhado_info);
         resultados = JSON.parse(JSON.stringify(periodos));
       } else if (!isEmpty(confirmed)) {
         alterarBotao('btn btn-success', 'Calculado!');
