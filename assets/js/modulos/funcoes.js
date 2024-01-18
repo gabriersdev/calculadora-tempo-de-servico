@@ -125,10 +125,9 @@ const criarPDFResultados = (resultados, calculo) => {
     - Total de meses: ${calculo.meses ?? '-'}
     - Total de anos: ${calculo.anos ?? '-'}
     
-    Períodos
-    `;
+    Períodos (exibindo os 10 maiores períodos)`;
     
-    resultados.toSorted((a, b) => b.meses - a.meses).forEach((resultado, index) => {
+    resultados.toSorted((a, b) => b.meses - a.meses).toSpliced(10).forEach((resultado, index) => {
       txt += `
       Período ${index + 1}
       - Início: ${resultado.inicio}

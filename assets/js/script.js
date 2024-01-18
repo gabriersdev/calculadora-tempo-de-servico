@@ -45,7 +45,7 @@ import {
   let periodos = new Array();
 
   // Modo de execução - 0: Desenvolvimento, 1: Produção, 2: Teste
-  const mode = 2;
+  const mode = 1;
 
   document.querySelectorAll('[data-recarrega-pagina]').forEach((botao) => {
     botao.addEventListener('click', () => {
