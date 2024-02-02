@@ -107,6 +107,35 @@ h5 b{
   font-weight: 600;
 }
 
+/* TODO - separar elementos em arquivos */
+button[accesskey] kbd{
+  /* Baseado no código de https://dylanatsmith.com/wrote/styling-the-kbd-element */
+
+  --kbd-color-background: #00000050;
+  --kbd-color-border: #00000010;
+  --kbd-color-text:  intherit;
+
+  background-color: var(--kbd-color-background);
+  color: var(--kbd-color-text);
+  border-radius: 0.125rem;
+  border: 1px solid var(--kbd-color-border);
+  box-shadow: 0 2px 0 1px var(--kbd-color-border);
+  cursor: default;
+  font-family: "Inter", sans-serif;
+  font-size: 0.75em;
+  line-height: 1;
+  min-width: 0.75rem;
+  text-align: center;
+  padding: 2px 5px;
+  position: relative;
+  top: -1px;
+
+  &:hover {
+    box-shadow: 0 1px 0 0.5px var(--kbd-color-border);
+    top: 1px;
+  }
+}
+
 @media screen and (width <= 1080px) {
   [data-element="periodos"] .row{
     display: block;
