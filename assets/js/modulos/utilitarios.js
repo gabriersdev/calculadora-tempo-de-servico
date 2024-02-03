@@ -153,6 +153,16 @@ function atribuirLinks() {
   });
 }
 
+function zeroEsquerda(quantidadeZeros, valor) {
+  let zeros;
+
+  for (let i = 0; i < quantidadeZeros; i += 1) {
+    zeros += '0';
+  }
+
+  return (zeros + valor).slice(-quantidadeZeros);
+}
+
 export {
   isEmpty,
   capitalize,
@@ -163,4 +173,5 @@ export {
   SwalAlert,
   verificarInputsRecarregamento,
   atribuirLinks,
+  zeroEsquerda,
 };

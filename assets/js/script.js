@@ -1,6 +1,6 @@
 import * as conteudos from './modulos/conteudos.js';
 import {
-  tooltips, verificarInputsRecarregamento, atribuirLinks,
+  tooltips, verificarInputsRecarregamento, atribuirLinks, atualizarDatas, zeroEsquerda,
 } from './modulos/utilitarios.js';
 import {
   removerPeriodo,
@@ -18,6 +18,7 @@ import {
     'Developed by': 'Gabriel Ribeiro',
     Version: '2.5.0',
     'Release date': '2023-12-31',
+    'Lastest update': '2024-02-03',
     Hostname: new URL(window.location).hostname,
     Origin: new URL(window.location).origin,
     Status: 'Active',
@@ -110,6 +111,13 @@ import {
     body.innerHTML += conteudos.principal;
     body.innerHTML += conteudos.footer;
 
+    // Exibindo versão e última atualização no rodapé
+    const date = new Date(`${dados_do_projeto['Lastest update']} 00:00:00`);
+
+    if (dados_do_projeto.Version && date !== 'Invalid Date') {
+      $('footer [data-element="informacoes-adicionais"]').text(`V.${dados_do_projeto.Version} ${zeroEsquerda(2, date.getDate())}.${zeroEsquerda(2, date.getMonth() + 1)}`);
+    }
+
     // Atribuindo máscaras para os primeiros inputs carregados
     $(document).ready(() => {
       $('#inicio-periodo-0').mask('00/00/0000');
@@ -124,6 +132,7 @@ import {
     atribuirAcoes();
     tooltips();
     verificarInputsRecarregamento();
+    atualizarDatas();
 
     // Em modo desenvolvimento (0), os campos são preenchidos e o botão clicado
     if (mode === 0) {
@@ -133,7 +142,7 @@ import {
         $('[data-action="calcular"]').click();
       }, 500);
     } else if (mode === 2) {
-      conteudos.periodos_teste.forEach((periodo, index) => {
+      conteudos.periodos_teste[1].forEach((periodo, index) => {
         if (index !== 0) { 
           $('[data-action="adicionar-periodo"]').click(); 
         }
