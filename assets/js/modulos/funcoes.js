@@ -88,12 +88,22 @@ const formatarDataENG = (dataBRL) => {
 const alterarBotao = (classe, HTML) => {
   const botao = document.querySelector('[data-action="calcular"]');
   
+  try {
+    $(botao).find('kbd').tooltip('dispose');
+    $(botao).find('kbd').tooltip('hide');
+  } catch (error) {
+    console.group('Erro');
+    console.error(error);
+    console.groupEnd();
+  }
+
   botao.classList.value = classe;
   botao.innerHTML = HTML;
   
   setTimeout(() => {
     botao.classList.value = 'btn btn-primary';
-    botao.innerHTML = 'Calcular';
+    botao.innerHTML = conteudos.htmlBtnSubmit;
+    $(botao).find('kbd').tooltip();
   }, 1000);
 };
 
@@ -226,6 +236,8 @@ const calcularPeriodos = async (periodos) => {
     let resultados = null;
     const mod = ((tempo.meses) % 12);
     
+    // TODO - Verificar e corrigir falha na contagem dos anos
+
     // Ajustando valores de anos e meses para exibição
     if (tempo.anos === 0 && tempo.meses % 12 > 0) {
       // Em períodos inferiores a 1 ano, o valor de anos é somado incorretamente, por isso a correção
