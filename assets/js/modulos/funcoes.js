@@ -210,11 +210,11 @@ const exibirCritica = (tempo_meses) => {
     erro.innerHTML += conteudos.critica.html.naoPodeTerDescontoMCMV;
   }
   
-  if (tempo_meses >= 24) {
-    sucesso.innerHTML += conteudos.critica.html.podeAmortizarComFGTS;
-  } else {
-    erro.innerHTML += conteudos.critica.html.naoPodeAmortizarComFGTS;
-  }
+  // if (tempo_meses >= 24) {
+  //   sucesso.innerHTML += conteudos.critica.html.podeAmortizarComFGTS;
+  // } else {
+  //   erro.innerHTML += conteudos.critica.html.naoPodeAmortizarComFGTS;
+  // }
   
   atribuirLinks();
   
@@ -239,7 +239,7 @@ const calcularPeriodos = async (periodos) => {
     // TODO - Verificar e corrigir falha na contagem dos anos
 
     // Ajustando valores de anos e meses para exibição
-    if (tempo.anos === 0 && tempo.meses % 12 > 0) {
+    if (tempo.anos === 0 && tempo.meses >= 12 && tempo.meses % 12 > 0) {
       // Em períodos inferiores a 1 ano, o valor de anos é somado incorretamente, por isso a correção
       tempo.anos = tempo.meses % 12; 
     } else if (tempo.meses >= 12) {
