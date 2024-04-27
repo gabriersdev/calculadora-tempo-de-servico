@@ -132,16 +132,16 @@ function atribuirLinks() {
       link.href = 'https://www.caixa.gov.br/voce/habitacao/Paginas/utilizacao-fgts.aspx';
       break;
 
-      case 'consumindo-api-alura':
-      link.href = 'https://gabrieszin.github.io/my-courses-alura/';
+      case 'calculadora-tempo-servico':
+      link.href = 'https://gabrieszin.github.io/calculadora-tempo-de-servico/';
       break;
 
       case 'cca':
       link.href = 'https://gabrieszin.github.io/cca/';
       break;
 
-      case 'gerador-qr-code':
-      link.href = 'https://gabrieszin.github.io/qr-code-generator/';
+      case 'capa-de-dossies':
+      link.href = 'https://gabrieszin.github.io/capa-de-dossies/';
       break;
       
       default:
