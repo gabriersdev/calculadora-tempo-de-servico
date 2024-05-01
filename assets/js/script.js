@@ -16,17 +16,17 @@ import {
   const dados_do_projeto = {
     'Project name': 'Calculadora de Tempo de Serviço',
     'Developed by': 'Gabriel Ribeiro',
-    Version: '2.5.0',
-    'Release date': '2023-12-31',
-    'Lastest update': '2024-02-03',
+    Version: '3.0.0',
+    'Release date': '2024-05-01',
+    'Lastest update': '2024-05-01',
     Hostname: new URL(window.location).hostname,
     Origin: new URL(window.location).origin,
     Status: 'Active',
   };
 
   const novas_funcionalidades = [
-    'Alterando contabilização de períodos com data de ínicio e fim no mesmo mês.',
-    'Corrigindo bug de download dos arquivos de tempo de serviço contabilizados.',
+    'Corrigida falha na contagem de meses de tempo de serviço',
+    'Removida a exibição de crítica de amortização com FGTS',
   ];
 
   Object.freeze(novas_funcionalidades);
