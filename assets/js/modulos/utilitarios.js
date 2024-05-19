@@ -113,11 +113,11 @@ function atribuirLinks() {
   linkElementos.forEach((link) => {
     switch (link.dataset.link.toLowerCase().trim()) {        
       case 'github-dev':
-      link.href = 'https://github.com/gabrieszin';
+      link.href = 'https://github.com/gabriersdev';
       break;
       
       case 'github-projeto':
-      link.href = 'https://github.com/gabrieszin/calculadora-tempo-de-servico';
+      link.href = 'https://github.com/gabriersdev/calculadora-tempo-de-servico';
       break;
 
       case 'calculadora':
@@ -133,15 +133,15 @@ function atribuirLinks() {
       break;
 
       case 'calculadora-tempo-servico':
-      link.href = 'https://gabrieszin.github.io/calculadora-tempo-de-servico/';
+      link.href = 'https://gabriersdev.github.io/calculadora-tempo-de-servico/';
       break;
 
       case 'cca':
-      link.href = 'https://gabrieszin.github.io/cca/';
+      link.href = 'https://gabriersdev.github.io/cca/';
       break;
 
       case 'capa-de-dossies':
-      link.href = 'https://gabrieszin.github.io/capa-de-dossies/';
+      link.href = 'https://gabriersdev.github.io/capa-de-dossies/';
       break;
       
       default:

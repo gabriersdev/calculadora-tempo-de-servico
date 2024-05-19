@@ -1,8 +1,8 @@
 # Calculadora Tempo de Serviço
 
-Este projeto é uma calculadora de períodos trabalhados de uma pessoa que soma os intervalos entre os períodos para chegar ao tempo de serviço trabalhado. [Você pode acessar o projeto por aqui.](https://gabrieszin.github.io/calculadora-tempo-de-servico/)
+Este projeto é uma calculadora de períodos trabalhados de uma pessoa que soma os intervalos entre os períodos para chegar ao tempo de serviço trabalhado. [Você pode acessar o projeto por aqui.](https://gabriersdev.github.io/calculadora-tempo-de-servico/)
 
-![Imagem de exemplo do projeto](https://gabrieszin.github.io/calculadora-tempo-de-servico/assets/img/exemplo-1.svg)
+![Imagem de exemplo do projeto](https://gabriersdev.github.io/calculadora-tempo-de-servico/assets/img/exemplo-1.svg)
 
 ## Funcionalidades
 
