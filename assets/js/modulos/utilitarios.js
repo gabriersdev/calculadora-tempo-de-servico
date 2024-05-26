@@ -136,6 +136,10 @@ function atribuirLinks() {
       link.href = 'https://gabriersdev.github.io/calculadora-tempo-de-servico/';
       break;
 
+      case 'damp':
+      link.href = 'https://gabriersdev.github.io/damp/';
+      break;
+
       case 'cca':
       link.href = 'https://gabriersdev.github.io/cca/';
       break;
